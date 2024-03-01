@@ -9,6 +9,7 @@ public class Movement : MonoBehaviour
     public float maxVelocityChange = 10f;
     public float sprintSpeed = 14f;
     public float jumpHeight = 5f;
+    public float jumpMultiplier = 0.2f;
 
     private Vector2 input;
     private Rigidbody rb;
@@ -31,7 +32,7 @@ public class Movement : MonoBehaviour
         input.Normalize();
 
         sprinting = Input.GetButton("Sprint");
-        jumping = Input.GetButton("Jump");
+        jumping = grounded ? Input.GetButton("Jump") : false;
     }
 
     private void OnTriggerStay(Collider other) {
@@ -40,21 +41,22 @@ public class Movement : MonoBehaviour
 
     void FixedUpdate() {
 
-        if (grounded) {
+        if (jumping) {
+            rb.velocity = new Vector3(rb.velocity.x, jumpHeight, rb.velocity.z);
+            grounded = false;
 
-            if (jumping) {
-                rb.velocity = new Vector3(rb.velocity.x, jumpHeight, rb.velocity.z);
-            }
-        
-            else {
-                rb.AddForce(CalculateMovement(sprinting ? sprintSpeed : walkSpeed), ForceMode.VelocityChange);
-            }
         }
-
-        grounded = false;
+        if (grounded) {
+            rb.AddForce(CalculateMovement(sprinting ? sprintSpeed : walkSpeed), ForceMode.VelocityChange);
+        }
+        else {
+            rb.AddForce(CalculateMovement(sprinting ? sprintSpeed : walkSpeed) * jumpMultiplier, ForceMode.VelocityChange);
+        }
+        
     }
 
     Vector3 CalculateMovement(float _speed) {
+        
         Vector3 targetVelocity = new Vector3(input.x, 0, input.y);
         targetVelocity = transform.TransformDirection(targetVelocity);
     
