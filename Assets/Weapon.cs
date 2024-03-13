@@ -11,6 +11,9 @@ public class Weapon : MonoBehaviour
 
     [Header("VFX")]
     public GameObject hitVFX;
+    [Space]
+    public GameObject muzzleFlash;
+    public Transform muzzleFlashSpawn;
 
     private float nextFire;
 
@@ -29,6 +32,9 @@ public class Weapon : MonoBehaviour
     }
 
     void Fire() {
+
+        MuzzleFlash();
+
         Ray ray = new Ray(camera.transform.position, camera.transform.forward);
 
         RaycastHit hit;
@@ -43,6 +49,13 @@ public class Weapon : MonoBehaviour
             }
 
         }
+
+    }
+
+    void MuzzleFlash() {
+
+        GameObject flash = PhotonNetwork.Instantiate(muzzleFlash.name, muzzleFlashSpawn.position, Quaternion.identity);
+        flash.GetComponent<FlashMove>().moveTo = muzzleFlashSpawn;
 
     }
 }
