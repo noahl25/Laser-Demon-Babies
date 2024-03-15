@@ -14,6 +14,9 @@ public class Weapon : MonoBehaviour
     [Space]
     public GameObject muzzleFlash;
     public Transform muzzleFlashSpawn;
+    [Header("Other")]
+    public GameObject owner;
+    public float moveForce;
 
     private float nextFire;
 
@@ -43,10 +46,17 @@ public class Weapon : MonoBehaviour
 
             PhotonNetwork.Instantiate(hitVFX.name, hit.point, Quaternion.identity);
             
-            if (hit.transform.gameObject.GetComponent<Health>()) {
+            if (hit.transform.gameObject.GetComponent<Health>() && hit.transform.gameObject != owner) {
                 hit.transform.gameObject.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.All, damage);
+            }
+
+            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Moveable")) {
+
+                hit.rigidbody.AddForceAtPosition(ray.direction * moveForce, hit.point);
+              //  Debug.Log("Applying");
 
             }
+
 
         }
 

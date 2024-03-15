@@ -14387,13 +14387,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clearBehavior: 2
   cameraShake:
-    enabled: 0
+    enabled: 1
     useMainCamera: 1
     cameras: []
     delay: 0
     duration: 1
     shakeSpace: 0
-    shakeStrength: {x: 0.1, y: 0.1, z: 0.1}
+    shakeStrength: {x: 0.04, y: 0.04, z: 0.05}
     shakeCurve:
       serializedVersion: 2
       m_Curve:
@@ -14418,12 +14418,12 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    shakesDelay: 0
+    shakesDelay: 0.046
   animatedLights:
   - light: {fileID: 1864245857890077472}
     loop: 0
     animateIntensity: 1
-    intensityStart: 4
+    intensityStart: 0.3
     intensityEnd: 0
     intensityDuration: 1
     intensityCurve:
@@ -14466,7 +14466,7 @@ MonoBehaviour:
     fadeOut: 0
     fadeOutDuration: 0.5
     animateRange: 1
-    rangeStart: 4
+    rangeStart: 2
     rangeEnd: 10
     rangeDuration: 0.15
     rangeCurve:
