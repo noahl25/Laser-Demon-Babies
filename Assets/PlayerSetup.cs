@@ -5,11 +5,11 @@ using UnityEngine;
 public class PlayerSetup : MonoBehaviour
 {
     public Movement movement;
-    public new Camera camera;
+    public GameObject cam;
 
     public void IsLocalPlayer() {
         movement.enabled = true;
-        camera.enabled = true;
+        cam.SetActive(true);
         Debug.Log("Set local.");
     }
 }

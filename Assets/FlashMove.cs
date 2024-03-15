@@ -5,13 +5,13 @@ using UnityEngine;
 public class FlashMove : MonoBehaviour
 {
 
-    public Transform moveTo;
+    [HideInInspector] public Transform moveTo;
 
     // Update is called once per frame
     void Update()
     {
-        
-        transform.position = moveTo.position;
+        if (moveTo != null)
+            transform.position = moveTo.position;
 
     }
 }
