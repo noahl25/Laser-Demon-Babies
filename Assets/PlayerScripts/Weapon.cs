@@ -7,13 +7,17 @@ public class Weapon : MonoBehaviour
 {
     public int damage;
     public float fireRate;
-    public new Camera camera;
+    public Camera cam;
+    public CameraShake camShake;
 
     [Header("VFX")]
     public GameObject hitVFX;
     [Space]
     public GameObject muzzleFlash;
     public Transform muzzleFlashSpawn;
+    [Space]
+    public Vector3 shakeMag;
+    public float shakeDur;
     [Header("Other")]
     public GameObject owner;
     public float moveForce;
@@ -37,14 +41,17 @@ public class Weapon : MonoBehaviour
     void Fire() {
 
         MuzzleFlash();
+        CameraShake();
 
-        Ray ray = new Ray(camera.transform.position, camera.transform.forward);
+        Ray ray = new Ray(cam.transform.position, cam.transform.forward);
 
         RaycastHit hit;
 
         if (Physics.Raycast(ray.origin, ray.direction, out hit, 100f)) {
 
-            PhotonNetwork.Instantiate(hitVFX.name, hit.point, Quaternion.identity);
+            if (hit.transform.gameObject != owner) {
+                PhotonNetwork.Instantiate(hitVFX.name, hit.point, Quaternion.identity);
+            }
             
             if (hit.transform.gameObject.GetComponent<Health>() && hit.transform.gameObject != owner) {
                 hit.transform.gameObject.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.All, damage);
@@ -66,6 +73,12 @@ public class Weapon : MonoBehaviour
 
         GameObject flash = PhotonNetwork.Instantiate(muzzleFlash.name, muzzleFlashSpawn.position, Quaternion.identity);
         flash.GetComponent<FlashMove>().moveTo = muzzleFlashSpawn;
+
+    }
+
+    void CameraShake() {
+
+        StartCoroutine(camShake.shake(shakeMag, shakeDur));
 
     }
 }

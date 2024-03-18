@@ -1,4 +1,7 @@
 ﻿using UnityEngine;
+using DG.Tweening;
+
+//camera script from BanannaDev
 
 public class MouseLook : MonoBehaviour
 {
@@ -89,5 +92,12 @@ public class MouseLook : MonoBehaviour
             var yRotation = Quaternion.AngleAxis(_mouseAbsolute.x, transform.InverseTransformDirection(Vector3.up));
             transform.localRotation *= yRotation;
         }
+    }
+
+    public void ToFov(float end) {
+        GetComponent<Camera>().DOFieldOfView(end, 0.25f);
+    }
+    public void Tilt(float tilt) {
+        transform.DOLocalRotate(new Vector3(0,0,tilt), 0.25f);
     }
 }
