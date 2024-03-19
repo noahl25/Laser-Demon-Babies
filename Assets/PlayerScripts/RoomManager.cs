@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using TMPro;
 
 public class RoomManager : MonoBehaviourPunCallbacks
 {
@@ -9,12 +10,14 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public GameObject player;
     [Space]
     public Transform spawnPoint;
+    [Space]
+    public TextMeshProUGUI loadingText;
 
     // Start is called before the first frame update
     void Start()
     {
         Debug.Log("Connecting...");
-
+        loadingText.text = "";
         PhotonNetwork.ConnectUsingSettings();
     }
 
@@ -23,7 +26,6 @@ public class RoomManager : MonoBehaviourPunCallbacks
         base.OnConnectedToMaster();
 
         Debug.Log("Connected to server.");
-
         PhotonNetwork.JoinLobby();
     }
 
@@ -32,7 +34,6 @@ public class RoomManager : MonoBehaviourPunCallbacks
         base.OnJoinedLobby();
 
         Debug.Log("Joined lobby.");
-
         PhotonNetwork.JoinOrCreateRoom("test", null, null);
     
     }
