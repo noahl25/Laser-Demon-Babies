@@ -83,7 +83,8 @@ public class WallRunning : MonoBehaviour
         }
 
         else {
-            StopWallRun();
+            if (mov.wallrunning)
+                StopWallRun();
         }
     }
 
@@ -97,12 +98,13 @@ public class WallRunning : MonoBehaviour
         mov.wallrunning = true;
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
-        if (ml != null)
+        if (ml != null) {
             ml.ToFov(70f);
-        // if (wallLeft)
-        //     ml.Tilt(-5f);
-        // if (wallRight)
-        //     ml.Tilt(5f);
+            // if (wallLeft)
+            //     ml.Tilt(-5f);
+            // if (wallRight)
+            //     ml.Tilt(5f);
+        }
 
     }
 
@@ -130,9 +132,10 @@ public class WallRunning : MonoBehaviour
     private void StopWallRun() {
         mov.wallrunning = false;
 
-        if (ml != null)
+        if (ml != null) {
             ml.ToFov(60f);
-        // ml.Tilt(0f);
+            //ml.Tilt(0f);
+        }
     }
 
     private void WallJump() {

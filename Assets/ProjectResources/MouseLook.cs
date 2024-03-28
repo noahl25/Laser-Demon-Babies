@@ -98,6 +98,6 @@ public class MouseLook : MonoBehaviour
         GetComponent<Camera>().DOFieldOfView(end, 0.25f);
     }
     public void Tilt(float tilt) {
-        transform.DOLocalRotate(new Vector3(0,0,tilt), 0.25f);
+        characterBody.transform.DOLocalRotate(new Vector3(0,0,tilt), 0.25f);
     }
 }

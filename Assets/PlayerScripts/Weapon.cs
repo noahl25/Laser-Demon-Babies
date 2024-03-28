@@ -23,6 +23,11 @@ public class Weapon : MonoBehaviour
     public float moveForce;
 
     private float nextFire;
+    private AudioSource laserSFX;
+
+    void Start() {
+        laserSFX = GetComponent<AudioSource>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -40,7 +45,7 @@ public class Weapon : MonoBehaviour
 
     void Fire() {
 
-        MuzzleFlash();
+        FX();
         CameraShake();
 
         Ray ray = new Ray(cam.transform.position, cam.transform.forward);
@@ -60,7 +65,6 @@ public class Weapon : MonoBehaviour
             if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Moveable")) {
 
                 hit.rigidbody.AddForceAtPosition(ray.direction * moveForce, hit.point);
-              //  Debug.Log("Applying");
 
             }
 
@@ -69,10 +73,12 @@ public class Weapon : MonoBehaviour
 
     }
 
-    void MuzzleFlash() {
+    void FX() {
 
         GameObject flash = PhotonNetwork.Instantiate(muzzleFlash.name, muzzleFlashSpawn.position, Quaternion.identity);
         flash.GetComponent<FlashMove>().moveTo = muzzleFlashSpawn;
+
+        laserSFX.Play();
 
     }
 

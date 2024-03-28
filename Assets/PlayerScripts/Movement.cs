@@ -14,12 +14,15 @@ public class Movement : MonoBehaviour
     public float jumpCooldown;
     public float airMultiplier;
     public float wallRunSpeed;
+    public float jetpackingAirMultiplier;
+    
     bool readyToJump;
 
     public float walkSpeed;
     public float sprintSpeed;
     public float crouchSpeed;
     public float crouchYScale;
+    public float jetpackingJumpMultiplier = 0.3f;
     private float startYScale;
 
     public float maxSlopeAngle;
@@ -47,7 +50,10 @@ public class Movement : MonoBehaviour
 
     Rigidbody rb;
 
-    public MovementState state;
+    [Header("Refs")]
+    public Grapple grapple;
+
+    [HideInInspector] public MovementState state;
 
     public enum MovementState {
         walking,
@@ -58,7 +64,7 @@ public class Movement : MonoBehaviour
         air
     }
 
-    public bool wallrunning;
+    [HideInInspector] public bool wallrunning;
 
     private void Start()
     {
@@ -81,12 +87,16 @@ public class Movement : MonoBehaviour
 
         if (Input.GetKey(sprintKey))
             ml.ToFov(68f);
+        else if (!wallrunning)
+            ml.ToFov(60f);
 
 
         if (grounded)
             rb.drag = groundDrag;
         else
             rb.drag = 0;
+
+
     }
 
     private void FixedUpdate()
@@ -115,8 +125,7 @@ public class Movement : MonoBehaviour
             state = MovementState.wallrunning;
             moveSpeed = wallRunSpeed;
         }
-
-        if (grounded && Input.GetKey(sprintKey)) {
+        else if (grounded && Input.GetKey(sprintKey)) {
             state = MovementState.sprinting;
             moveSpeed = sprintSpeed;
         }
@@ -126,9 +135,11 @@ public class Movement : MonoBehaviour
         }
         else if (Input.GetKey(jumpKey)) {
             state = MovementState.jetpacking;
+            moveSpeed = sprintSpeed;
         }
         else {
             state = MovementState.air;
+            moveSpeed = sprintSpeed;
         }
     }
 
@@ -174,7 +185,12 @@ public class Movement : MonoBehaviour
         exitingSlope = true;
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
-        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        if (state == MovementState.jetpacking || grapple.set) {
+            rb.AddForce(transform.up * jumpForce * jetpackingJumpMultiplier, ForceMode.Impulse);
+        }
+        else {
+            rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        }
     }
 
     private void ResetJump()

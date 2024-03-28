@@ -17,10 +17,11 @@ public class Grapple : MonoBehaviour
     [Header("Grapple")]
     public float grappleForce;
     public float maxDistance;
+    public float upwardForce;
 
     private Vector3 grappleHit;
     private GameObject grappleObjectHit;
-    private bool set;
+    public bool set;
 
     // Start is called before the first frame update
     void Start()
@@ -95,6 +96,7 @@ public class Grapple : MonoBehaviour
         }
 
         rb.AddForce((grappleHit - spawn.transform.position).normalized * grappleForce, ForceMode.Force);
+        rb.AddForce(Vector3.up * upwardForce, ForceMode.Force);
 
 
     
