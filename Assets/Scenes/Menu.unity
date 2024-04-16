@@ -97,8 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 9775a8dcfafd7d84f8c1600e8cfefacb, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 2ef1139d804848b4a8bcf38118a8a95d, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -266,7 +266,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 57411174}
-  - component: {fileID: 57411173}
+  - component: {fileID: 57411175}
   m_Layer: 0
   m_Name: Main Menu Scripts
   m_TagString: Untagged
@@ -274,18 +274,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &57411173
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 57411172}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2761b32fe300e064eb0ccd03ff7d1b2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &57411174
 Transform:
   m_ObjectHideFlags: 0
@@ -301,6 +289,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &57411175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 57411172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b16c33dc7e0d5e47b2febb3e67baab9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &434248332
 GameObject:
   m_ObjectHideFlags: 0
@@ -524,8 +524,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 57411173}
-        m_TargetAssemblyTypeName: ClickFunctions, Assembly-CSharp
+      - m_Target: {fileID: 57411175}
+        m_TargetAssemblyTypeName: MainMenuHandler, Assembly-CSharp
         m_MethodName: Settings
         m_Mode: 1
         m_Arguments:
@@ -883,8 +883,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 57411173}
-        m_TargetAssemblyTypeName: ClickFunctions, Assembly-CSharp
+      - m_Target: {fileID: 57411175}
+        m_TargetAssemblyTypeName: MainMenuHandler, Assembly-CSharp
         m_MethodName: Lobby
         m_Mode: 1
         m_Arguments:
@@ -894,7 +894,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 1
 --- !u!114 &1420897981
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using TMPro;
 
 public class Weapon : MonoBehaviour
 {
@@ -16,17 +17,48 @@ public class Weapon : MonoBehaviour
     public GameObject muzzleFlash;
     public Transform muzzleFlashSpawn;
     [Space]
+    public AudioClip laserSFX;
+    public AudioClip outSFX;
+    public Transform playAt;
+    [Space]
     public Vector3 shakeMag;
     public float shakeDur;
+    [Header("Ammo")]
+    public int mag = 5;
+    public int ammo = 30;
+    public int magAmmo = 30;
+    [Header("UI")]
+    public TextMeshProUGUI magText;
+    public TextMeshProUGUI ammoText;
     [Header("Other")]
     public GameObject owner;
     public float moveForce;
+    public Animation animation;
+    public AnimationClip reloadAnimation;
+    [Header("Recoil")]
+    [Range(0, 2)]
+    public float recoverPercent = 0.7f;
+    [Space]
+    public float recoilUp = 1f;
+    public float recoilBack = 0f;
+
+    private Vector3 originalPos;
+    private Vector3 recoilVelocity = Vector3.zero;
+    private bool recoiling;
+    private bool recovering;
+    private float recoilLength;
+    private float recoverLength;
+
 
     private float nextFire;
-    private AudioSource laserSFX;
 
     void Start() {
-        laserSFX = GetComponent<AudioSource>();
+        magText.text = mag.ToString();
+        ammoText.text = ammo + "/" + magAmmo;
+        originalPos = transform.localPosition;
+
+        recoilLength = 0;
+        recoverLength = 1 / fireRate * recoverPercent;
     }
 
     // Update is called once per frame
@@ -36,17 +68,51 @@ public class Weapon : MonoBehaviour
         if (nextFire > 0)
             nextFire -= Time.deltaTime;
         
-        if (Input.GetButton("Fire1") && nextFire <= 0) {
+        if (Input.GetButton("Fire1") && nextFire <= 0 && ammo > 0 && !animation.isPlaying) {
             nextFire = 1 / fireRate;
+            ammo--;
+            magText.text = mag.ToString();
+            ammoText.text = ammo + "/" + magAmmo;
             Fire();
         }
 
+        if (Input.GetButtonDown("Fire1") && ammo == 0) {
+            AudioSource.PlayClipAtPoint(outSFX, playAt.position);
+        }
+
+        if (Input.GetKeyDown(KeyCode.R) && mag > 0) {
+            Reload();
+        }
+
+        if (recoiling) {
+            Recoil();
+        }
+        if (recovering) {
+            Recover();
+        }
+
+    }
+
+    void Reload() {
+
+        animation.Play(reloadAnimation.name);
+
+        if (mag > 0) {
+            mag--;
+            ammo = magAmmo;
+        }
+
+        magText.text = mag.ToString();
+        ammoText.text = ammo + "/" + magAmmo;
     }
 
     void Fire() {
 
         FX();
         CameraShake();
+
+        recoiling = true;
+        recovering = false;
 
         Ray ray = new Ray(cam.transform.position, cam.transform.forward);
 
@@ -78,7 +144,7 @@ public class Weapon : MonoBehaviour
         GameObject flash = PhotonNetwork.Instantiate(muzzleFlash.name, muzzleFlashSpawn.position, Quaternion.identity);
         flash.GetComponent<FlashMove>().moveTo = muzzleFlashSpawn;
 
-        laserSFX.Play();
+        AudioSource.PlayClipAtPoint(laserSFX, playAt.position);
 
     }
 
@@ -87,4 +153,29 @@ public class Weapon : MonoBehaviour
         StartCoroutine(camShake.shake(shakeMag, shakeDur));
 
     }
+
+    void Recoil() {
+
+        Vector3 finalPos = new Vector3(originalPos.x, originalPos.y + recoilUp, originalPos.z - recoilBack);
+        transform.localPosition = Vector3.SmoothDamp(transform.localPosition, finalPos, ref recoilVelocity, recoilLength);
+
+        if (transform.localPosition == finalPos) {
+            recoiling = false;
+            recovering = true;
+        }
+
+    }
+
+    void Recover() {
+
+        Vector3 finalPos = originalPos;
+        transform.localPosition = Vector3.SmoothDamp(transform.localPosition, finalPos, ref recoilVelocity, recoverLength);
+
+        if (transform.localPosition == finalPos) {
+            recoiling = false;
+            recovering = false;
+        }
+
+    }
+    
 }

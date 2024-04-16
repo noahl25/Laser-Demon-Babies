@@ -96,7 +96,9 @@ public class Grapple : MonoBehaviour
         }
 
         rb.AddForce((grappleHit - spawn.transform.position).normalized * grappleForce, ForceMode.Force);
-        rb.AddForce(Vector3.up * upwardForce, ForceMode.Force);
+
+        if (spawn.transform.position.y < grappleHit.y)
+            rb.AddForce(Vector3.up * upwardForce, ForceMode.Force);
 
 
     

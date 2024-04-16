@@ -6,18 +6,25 @@ using TMPro;
 
 public class RoomManager : MonoBehaviourPunCallbacks
 {
+    public static RoomManager instance;
 
     public GameObject player;
     [Space]
     public Transform spawnPoint;
     [Space]
-    public TextMeshProUGUI loadingText;
+    public GameObject loadingCam;
+
+    void Awake() {
+
+        instance = this;
+
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         Debug.Log("Connecting...");
-        loadingText.text = "";
+
         PhotonNetwork.ConnectUsingSettings();
     }
 
@@ -42,8 +49,18 @@ public class RoomManager : MonoBehaviourPunCallbacks
     {
         base.OnJoinedRoom();
         Debug.Log("Joined room.");
+
+        loadingCam.SetActive(false);
+
+        SpawnPlayer();
+  
+    }
+
+    public void SpawnPlayer() {
+
         GameObject _player = PhotonNetwork.Instantiate(player.name, spawnPoint.position, Quaternion.identity);
         _player.GetComponent<PlayerSetup>().IsLocalPlayer();
-  
+        _player.GetComponent<Health>().isLocalPlayer = true;
+
     }
 }

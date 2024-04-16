@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// the physics for this is really complicated, i used a lot of code from a tutorial + alot of edits to fix stuff and smooth everything
+
 public class WallRunning : MonoBehaviour
 {
 
