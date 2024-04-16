@@ -52,6 +52,7 @@ public class Movement : MonoBehaviour
 
     [Header("Refs")]
     public Grapple grapple;
+    public Vector3 startPos;
 
     [HideInInspector] public MovementState state;
 
@@ -116,6 +117,9 @@ public class Movement : MonoBehaviour
             Jump();
 
             Invoke(nameof(ResetJump), jumpCooldown);
+        }
+        if (Input.GetKey(KeyCode.L)) {
+            transform.position = startPos;
         }
     }
 

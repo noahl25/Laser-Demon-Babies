@@ -3,21 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ClickFunctions : MonoBehaviour
+public class MainMenuHandler : MonoBehaviour
 {
-    
     public void MainMenu()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("Menu");
     }
 
     public void Lobby()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("MainMap");
     }
 
     public void Settings()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene("Settings");
     }
 }

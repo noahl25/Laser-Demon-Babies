@@ -38,8 +38,7 @@ public class Jetpack : MonoBehaviour
         if (jetpackActive && !movement.grounded) {
             rb.AddForce(Vector3.up * jetpackForce, ForceMode.Force);
         }
-
-
+        
     }
 
     // Update is called once per frame
