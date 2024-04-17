@@ -14,6 +14,9 @@ public class RoomManager : MonoBehaviourPunCallbacks
     [Space]
     public GameObject loadingCam;
 
+    public string roomNameToJoin = "test";
+
+
     void Awake() {
 
         instance = this;
@@ -23,26 +26,13 @@ public class RoomManager : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
+        GameObject gameSelect = GameObject.FindWithTag("GameSelection");
+
+        roomNameToJoin = gameSelect.GetComponent<RoomList>().futureRoomName;
+
         Debug.Log("Connecting...");
 
-        PhotonNetwork.ConnectUsingSettings();
-    }
-
-    public override void OnConnectedToMaster() {
-
-        base.OnConnectedToMaster();
-
-        Debug.Log("Connected to server.");
-        PhotonNetwork.JoinLobby();
-    }
-
-    public override void OnJoinedLobby() {
-
-        base.OnJoinedLobby();
-
-        Debug.Log("Joined lobby.");
-        PhotonNetwork.JoinOrCreateRoom("test", null, null);
-    
+        PhotonNetwork.JoinOrCreateRoom(roomNameToJoin, null, null);
     }
 
     public override void OnJoinedRoom()

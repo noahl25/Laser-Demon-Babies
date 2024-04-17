@@ -3595,6 +3595,7 @@ MonoBehaviour:
   player: {fileID: 4654791684213557670, guid: 6081af7361ed09c44aba3ab4186e6e4d, type: 3}
   spawnPoint: {fileID: 291158502}
   loadingCam: {fileID: 1394757242}
+  roomNameToJoin: test
 --- !u!4 &1152684260
 Transform:
   m_ObjectHideFlags: 0

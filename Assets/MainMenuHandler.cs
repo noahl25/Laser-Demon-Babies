@@ -5,6 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuHandler : MonoBehaviour
 {
+
+    public Transform playButton;
+    public Transform settingsButton;
+    public Transform roomList;
+
     public void MainMenu()
     {
         SceneManager.LoadScene("Menu");
@@ -12,7 +17,10 @@ public class MainMenuHandler : MonoBehaviour
 
     public void Lobby()
     {
-        SceneManager.LoadScene("MainMap");
+        playButton.gameObject.SetActive(false);
+        settingsButton.gameObject.SetActive(false);
+        roomList.gameObject.SetActive(true);
+
     }
 
     public void Settings()
