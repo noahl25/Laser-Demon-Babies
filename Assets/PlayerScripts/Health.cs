@@ -7,6 +7,15 @@ using System;
 
 public class Health : MonoBehaviour
 {
+
+    public enum Team {
+        RED,
+        BLUE,
+        NONE
+    }
+
+    public Team team = Team.NONE;
+
     public int health;
     public bool isLocalPlayer;
 

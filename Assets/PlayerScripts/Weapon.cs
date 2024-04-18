@@ -124,7 +124,7 @@ public class Weapon : MonoBehaviour
                 PhotonNetwork.Instantiate(hitVFX.name, hit.point, Quaternion.identity);
             }
             
-            if (hit.transform.gameObject.GetComponent<Health>() && hit.transform.gameObject != owner) {
+            if (hit.transform.gameObject.GetComponent<Health>() && hit.transform.gameObject != owner && (hit.transform.gameObject.GetComponent<Health>().team != owner.GetComponent<Health>().team || owner.GetComponent<Health>().team == Health.Team.NONE)) {
                 hit.transform.gameObject.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.All, damage);
             }
 

@@ -10,16 +10,25 @@ using UnityEngine.UI;
 public class RoomList : MonoBehaviourPunCallbacks
 {
 
+    public enum GameType {
+        FFA,
+        TDM,
+        None
+    }
+
     public static RoomList Instance;
 
     [Header("UI")]
     public Transform roomListParent;
     public GameObject roomListItemPrefab;
     public TMP_InputField createRoomName;
+    public Toggle TDMToggle;
+    public Toggle FFAToggle;
 
     private List<RoomInfo> cachedRoomList = new List<RoomInfo>();
 
     [HideInInspector] public string futureRoomName;
+    [HideInInspector] public GameType gameType = GameType.None;
 
 
     private void Awake() {
@@ -102,19 +111,33 @@ public class RoomList : MonoBehaviourPunCallbacks
 
     }
 
+    public void UnselectFFA() {
+        FFAToggle.isOn = false;
+    }
+    public void UnselectTDM() {
+        TDMToggle.isOn = false;
+    }
+
     public void JoinRoomByName(string name) {
-        LoadMainWithRoomName(name);
+        futureRoomName = name;
+        SceneManager.LoadScene("MainMap");
     }
 
     public void CreateRoom() {
-        LoadMainWithRoomName(createRoomName.text);
-    }
-
-    public void LoadMainWithRoomName(string name) {
         
-        futureRoomName = name;
+        futureRoomName = createRoomName.text;
+        
+        if (FFAToggle.isOn) {
+            gameType = GameType.FFA;
+        }
+        else if (TDMToggle.isOn) {
+            gameType = GameType.TDM;
+        }
+        else {
+            return;
+        }
+
         SceneManager.LoadScene("MainMap");
-
-
     }
+
 }
