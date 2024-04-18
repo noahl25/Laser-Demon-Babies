@@ -575,7 +575,6 @@ GameObject:
   - component: {fileID: 2605211482994820982}
   - component: {fileID: 2242918490319760175}
   - component: {fileID: 2591623625539758696}
-  - component: {fileID: 5867565116914450841}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -837,7 +836,6 @@ MonoBehaviour:
   wallrun: {fileID: 2242918490319760175}
   jetpack: {fileID: 2591623625539758696}
   orientation: {fileID: 8047929476713657984}
-  listener: {fileID: 5867565116914450841}
   overlay: {fileID: 6224894023979654108}
   fadeInDur: 2
 --- !u!135 &1954568435915490188
@@ -925,14 +923,6 @@ MonoBehaviour:
   groundedRefuelDelay: 0.3
   maxYVel: 7
   movement: {fileID: 776582223405554295}
---- !u!81 &5867565116914450841
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4654791684213557670}
-  m_Enabled: 0
 --- !u!1 &5196471373353801211
 GameObject:
   m_ObjectHideFlags: 0

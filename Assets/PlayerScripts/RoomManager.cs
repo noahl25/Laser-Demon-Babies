@@ -61,9 +61,6 @@ public class RoomManager : MonoBehaviourPunCallbacks
         _player.GetComponent<PlayerSetup>().IsLocalPlayer();
         _player.GetComponent<Health>().isLocalPlayer = true;
 
-        Debug.Log("Hi");
-        Debug.Log(PhotonNetwork.CurrentRoom.Name);
-
         if ((string)PhotonNetwork.CurrentRoom.CustomProperties["gamemode"] == "tdm") {
 
             Health.Team team;
