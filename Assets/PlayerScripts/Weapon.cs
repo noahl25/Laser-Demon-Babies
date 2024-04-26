@@ -7,6 +7,9 @@ using DG.Tweening;
 
 public class Weapon : MonoBehaviour
 {
+    public GameObject basicgun;
+    public GameObject scopedgun;
+
     public int damage;
     public float fireRate;
     public Camera cam;
@@ -50,6 +53,8 @@ public class Weapon : MonoBehaviour
     private float recoilLength;
     private float recoverLength;
 
+    
+
 
     private float nextFire;
 
@@ -60,11 +65,24 @@ public class Weapon : MonoBehaviour
 
         recoilLength = 0;
         recoverLength = 1 / fireRate * recoverPercent;
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown("1"))
+        {
+            basicgun.SetActive(true);
+            scopedgun.SetActive(false);
+        }
+
+        if (Input.GetKeyDown("2"))
+        {
+            basicgun.SetActive(false);
+            scopedgun.SetActive(true);
+        }
 
         if (nextFire > 0)
             nextFire -= Time.deltaTime;

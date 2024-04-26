@@ -1082,6 +1082,7 @@ MonoBehaviour:
   lockCursor: 1
   smoothing: {x: 3, y: 3}
   characterBody: {fileID: 71443420741628654}
+  camHolder: {fileID: 0}
   scoped: 0
 --- !u!114 &6834474338033828514
 MonoBehaviour:
@@ -1233,6 +1234,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 275e29a677250d741a9bfd7e3e5e2ca2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  basicgun: {fileID: 0}
+  scopedgun: {fileID: 0}
   damage: 20
   fireRate: 7
   cam: {fileID: 91842227839705309}
