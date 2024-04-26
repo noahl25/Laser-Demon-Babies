@@ -95,10 +95,12 @@ public class Grapple : MonoBehaviour
             set = false;
         }
 
-        rb.AddForce((grappleHit - spawn.transform.position).normalized * grappleForce, ForceMode.Force);
+        rb.AddForce((grappleHit - spawn.transform.position).normalized * grappleForce * Time.deltaTime, ForceMode.Force);
 
-        if (spawn.transform.position.y < grappleHit.y)
-            rb.AddForce(Vector3.up * upwardForce, ForceMode.Force);
+        if (spawn.transform.position.y < grappleHit.y) {
+           // Debug.Log("Uping");
+            rb.AddForce(Vector3.up * upwardForce * Time.deltaTime, ForceMode.Force);
+        }
 
 
     

@@ -102,10 +102,10 @@ public class WallRunning : MonoBehaviour
 
         if (ml != null) {
             ml.ToFov(70f);
-            // if (wallLeft)
-            //     ml.Tilt(-5f);
-            // if (wallRight)
-            //     ml.Tilt(5f);
+            if (wallLeft)
+                ml.Tilt(-5f);
+            if (wallRight)
+                ml.Tilt(5f);
         }
 
     }
@@ -136,7 +136,7 @@ public class WallRunning : MonoBehaviour
 
         if (ml != null) {
             ml.ToFov(60f);
-            //ml.Tilt(0f);
+            ml.Tilt(0f);
         }
     }
 

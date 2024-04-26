@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using TMPro;
+using DG.Tweening;
 
 public class Weapon : MonoBehaviour
 {
@@ -41,7 +42,7 @@ public class Weapon : MonoBehaviour
     [Space]
     public float recoilUp = 1f;
     public float recoilBack = 0f;
-
+ 
     private Vector3 originalPos;
     private Vector3 recoilVelocity = Vector3.zero;
     private bool recoiling;
@@ -80,7 +81,7 @@ public class Weapon : MonoBehaviour
             AudioSource.PlayClipAtPoint(outSFX, playAt.position);
         }
 
-        if (Input.GetKeyDown(KeyCode.R) && mag > 0) {
+        if (Input.GetKeyDown(KeyCode.R) && mag > 0 && !animation.isPlaying) {
             Reload();
         }
 
@@ -163,6 +164,8 @@ public class Weapon : MonoBehaviour
             recoiling = false;
             recovering = true;
         }
+
+        cam.transform.DOLocalRotate(new Vector3(cam.transform.localEulerAngles.x - 1.0f,0,0), 0.25f);
 
     }
 
