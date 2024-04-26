@@ -10,7 +10,7 @@ public class PlayerSetup : MonoBehaviour
     public WallRunning wallrun;
     public Jetpack jetpack;
     public GameObject orientation;
-   // public AudioListener listener;
+    public AudioListener listener;
     [Space]
     public Image overlay;
     public float fadeInDur;
@@ -20,7 +20,7 @@ public class PlayerSetup : MonoBehaviour
         movement.enabled = true;
         wallrun.enabled = true;
         jetpack.enabled = true;
-       // listener.enabled = true;
+        listener.enabled = true;
         cam.SetActive(true);
         orientation.SetActive(true);
         Debug.Log("Set local.");

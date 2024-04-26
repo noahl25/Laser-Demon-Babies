@@ -17,6 +17,7 @@ public class MouseLook : MonoBehaviour
 
     [Header("First Person")]
     public GameObject characterBody;
+    public GameObject camHolder;
 
     private Vector2 targetDirection;
     private Vector2 targetCharacterDirection;
@@ -79,7 +80,7 @@ public class MouseLook : MonoBehaviour
         if (clampInDegrees.y < 360)
             _mouseAbsolute.y = Mathf.Clamp(_mouseAbsolute.y, -clampInDegrees.y * 0.5f, clampInDegrees.y * 0.5f);
 
-        transform.localRotation = Quaternion.AngleAxis(-_mouseAbsolute.y, targetOrientation * Vector3.right) * targetOrientation;
+        camHolder.transform.localRotation = Quaternion.AngleAxis(-_mouseAbsolute.y, targetOrientation * Vector3.right) * targetOrientation;
 
         // If there's a character body that acts as a parent to the camera
         if (characterBody)
@@ -98,6 +99,6 @@ public class MouseLook : MonoBehaviour
         GetComponent<Camera>().DOFieldOfView(end, 0.25f);
     }
     public void Tilt(float tilt) {
-        characterBody.transform.DOLocalRotate(new Vector3(0,0,tilt), 0.25f);
+        transform.DOLocalRotate(new Vector3(0,0,tilt), 0.25f);
     }
 }
