@@ -7,6 +7,9 @@ using DG.Tweening;
 
 public class Weapon : MonoBehaviour
 {
+    public GameObject basicgun;
+    public GameObject scopedgun;
+
     public int damage;
     public float fireRate;
     public Camera cam;
@@ -63,6 +66,8 @@ public class Weapon : MonoBehaviour
 
     private MouseLook ml;
 
+    
+
 
     private float nextFire;
 
@@ -80,6 +85,17 @@ public class Weapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown("1"))
+        {
+            basicgun.SetActive(true);
+            scopedgun.SetActive(false);
+        }
+
+        if (Input.GetKeyDown("2"))
+        {
+            basicgun.SetActive(false);
+            scopedgun.SetActive(true);
+        }
 
         if (nextFire > 0)
             nextFire -= Time.deltaTime;

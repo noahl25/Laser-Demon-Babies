@@ -1234,6 +1234,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 275e29a677250d741a9bfd7e3e5e2ca2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  basicgun: {fileID: 0}
+  scopedgun: {fileID: 0}
   damage: 20
   fireRate: 7
   cam: {fileID: 91842227839705309}
