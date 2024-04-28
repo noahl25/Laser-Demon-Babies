@@ -38,7 +38,7 @@ public class PlayerSetup : MonoBehaviour
     private IEnumerator FadeIn() {
 
         yield return new WaitForSeconds(1f);
-        overlay.CrossFadeAlpha(0, fadeInDur, false);
+        overlay.CrossFadeAlpha(0, fadeInDur * Time.deltaTime, false);
 
     }
 

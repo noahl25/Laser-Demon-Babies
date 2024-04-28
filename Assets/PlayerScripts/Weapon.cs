@@ -4,6 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using TMPro;
 using DG.Tweening;
+using Photon.Pun.UtilityScripts;
 
 public class Weapon : MonoBehaviour
 {
@@ -157,6 +158,8 @@ public class Weapon : MonoBehaviour
 
         RaycastHit hit;
 
+       // PhotonNetwork.LocalPlayer.AddScore(1);
+
         if (Physics.Raycast(ray.origin, ray.direction, out hit, 100f)) {
 
             PhotonView view = hit.transform.gameObject.GetComponent<PhotonView>();
@@ -167,6 +170,13 @@ public class Weapon : MonoBehaviour
             }
             
             if (health && hit.transform.gameObject != owner && health.team != owner.GetComponent<Health>().team && health.team != Health.Team.NONE) {
+                
+                PhotonNetwork.LocalPlayer.AddScore(damage);
+
+                if (damage >= hit.transform.gameObject.GetComponent<Health>().health) {
+                    PhotonNetwork.LocalPlayer.AddScore(100);
+                }
+
                 view.RPC("TakeDamage", RpcTarget.All, damage);
             }
 

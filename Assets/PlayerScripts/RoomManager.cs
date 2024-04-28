@@ -20,6 +20,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
     private RoomList.GameType gameType;
 
     private string playerName = "unnnamed";
+    private Health.Team playerTeam = Health.Team.NONE;
 
     void Awake() {
 
@@ -70,29 +71,33 @@ public class RoomManager : MonoBehaviourPunCallbacks
         _player.GetComponent<PlayerSetup>().IsLocalPlayer();
         _player.GetComponent<Health>().isLocalPlayer = true;
 
-        Health.Team team = Health.Team.NONE;
+        
 
         if ((string)PhotonNetwork.CurrentRoom.CustomProperties["gamemode"] == "tdm") {
 
+            if (playerTeam == Health.Team.NONE) {
+                if (Random.value >= 0.5f) {
+                    playerTeam = Health.Team.BLUE;
+                    _player.transform.GetChild(1).gameObject.SetActive(true);
+    
+                }
+                else {
 
-            if (Random.value >= 0.5f) {
-                team = Health.Team.BLUE;
-                _player.transform.GetChild(1).gameObject.SetActive(true);
- 
+                    playerTeam = Health.Team.RED;
+                    _player.transform.GetChild(0).gameObject.SetActive(true);
+    
+                }
             }
-            else {
 
-                team = Health.Team.RED;
-                _player.transform.GetChild(0).gameObject.SetActive(true);
- 
-            }
-            team = Health.Team.RED;
-            _player.GetComponent<PhotonView>().RPC("SyncTeams", RpcTarget.AllBuffered, team);
-            _player.GetComponent<TeamIndicator>().SetTeamText(team.ToString());
+            _player.GetComponent<PhotonView>().RPC("SyncTeams", RpcTarget.AllBuffered, playerTeam);
+            _player.GetComponent<TeamIndicator>().SetTeamText(playerTeam.ToString());
+
         }
 
-        _player.GetComponent<PhotonView>().RPC("SetName", RpcTarget.AllBuffered, playerName, team);
+        _player.GetComponent<PhotonView>().RPC("SetName", RpcTarget.AllBuffered, playerName, playerTeam);
         _player.GetComponent<PlayerSetup>().HideName();
+
+        PhotonNetwork.LocalPlayer.NickName = playerName;
 
     }
 }

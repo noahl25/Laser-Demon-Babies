@@ -43,9 +43,11 @@ public class Health : MonoBehaviour
 
         if (_team == Team.RED) {
             gameObject.transform.GetChild(0).gameObject.SetActive(true);
+            gameObject.transform.GetChild(1).gameObject.SetActive(false);
         }
         else {
             gameObject.transform.GetChild(1).gameObject.SetActive(true);
+            gameObject.transform.GetChild(0).gameObject.SetActive(false);
         }
 
     }

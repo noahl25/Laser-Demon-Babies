@@ -177,7 +177,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5491645583575489943
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1031,11 +1031,11 @@ GameObject:
   - component: {fileID: 1357817937978011104}
   - component: {fileID: 4625801782151574344}
   - component: {fileID: 1734577048092240459}
-  - component: {fileID: 1954568435915490188}
   - component: {fileID: 2605211482994820982}
   - component: {fileID: 2242918490319760175}
   - component: {fileID: 2591623625539758696}
   - component: {fileID: 7474521888175284913}
+  - component: {fileID: 6159757077024867398}
   m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
@@ -1056,9 +1056,9 @@ Transform:
   m_LocalScale: {x: 1, y: 0.79365, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4399086823250664988}
   - {fileID: 880751972244364333}
   - {fileID: 2723215341547226291}
+  - {fileID: 4399086823250664988}
   - {fileID: 2296835753203453748}
   - {fileID: 5452285259784329852}
   - {fileID: 768240044573914945}
@@ -1071,7 +1071,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4654791684213557670}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1293,31 +1293,10 @@ MonoBehaviour:
   orientation: {fileID: 8047929476713657984}
   listener: {fileID: 7474521888175284913}
   overlay: {fileID: 6224894023979654108}
-  fadeInDur: 2
+  fadeInDur: 50
   nameText: {fileID: 6905452159563674118}
   nameHolder: {fileID: 1266382426681839585}
   playerName: 
---- !u!135 &1954568435915490188
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4654791684213557670}
-  m_Material: {fileID: 13400000, guid: f5761e61549f1c64d87f47b31b105d17, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5325018
-  m_Center: {x: 0.010067821, y: -0.54000014, z: 0}
 --- !u!114 &2605211482994820982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1575,6 +1554,7 @@ RectTransform:
   - {fileID: 1493023676434295494}
   - {fileID: 5491645583575489943}
   - {fileID: 1004418996475393350}
+  - {fileID: 8339902372367976562}
   m_Father: {fileID: 8741213722042114755}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2626,6 +2606,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ed56787ae56b1ed4a9f25d9080b7722c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1043830259349886573, guid: ed56787ae56b1ed4a9f25d9080b7722c, type: 3}
       propertyPath: m_Layer
       value: 0
@@ -2898,6 +2882,7 @@ MonoBehaviour:
   damage: 60
   fireRate: 1
   cam: {fileID: 1128208124470661519}
+  cameraHolder: {fileID: 0}
   camShake: {fileID: 839556725194813919}
   hitVFX: {fileID: 1141330259687333427, guid: 6fc0756bc1b9d1242b018cf48b2f18b2, type: 3}
   muzzleFlash: {fileID: 7177991128484655659, guid: b72d096b34b1dc14db0cc4e1bc3212c4, type: 3}
@@ -2919,6 +2904,11 @@ MonoBehaviour:
   recoverPercent: 0.7
   recoilUp: 1
   recoilBack: 0
+  recoilX: 0
+  recoilY: 0
+  recoilZ: 0
+  snappiness: 0
+  returnSpeed: 0
 --- !u!114 &2182391891263056670
 MonoBehaviour:
   m_ObjectHideFlags: 0
