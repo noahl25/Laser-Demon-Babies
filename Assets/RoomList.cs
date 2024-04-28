@@ -29,6 +29,7 @@ public class RoomList : MonoBehaviourPunCallbacks
 
     [HideInInspector] public string futureRoomName;
     [HideInInspector] public GameType gameType = GameType.None;
+    [HideInInspector] public string futurePlayerName = "unnamed";
 
 
     private void Awake() {
@@ -121,6 +122,10 @@ public class RoomList : MonoBehaviourPunCallbacks
     public void JoinRoomByName(string name) {
         futureRoomName = name;
         SceneManager.LoadScene("MainMap");
+    }
+
+    public void SetFuturePlayerName(string name) {
+        futurePlayerName = name;
     }
 
     public void CreateRoom() {

@@ -10,6 +10,7 @@ public class Weapon : MonoBehaviour
     public int damage;
     public float fireRate;
     public Camera cam;
+    public GameObject cameraHolder;
     public CameraShake camShake;
 
     [Header("VFX")]
@@ -42,6 +43,13 @@ public class Weapon : MonoBehaviour
     [Space]
     public float recoilUp = 1f;
     public float recoilBack = 0f;
+    [Space]
+    public float recoilX;
+    public float recoilY;
+    public float recoilZ;
+
+    public float snappiness;
+    public float returnSpeed;
  
     private Vector3 originalPos;
     private Vector3 recoilVelocity = Vector3.zero;
@@ -49,6 +57,11 @@ public class Weapon : MonoBehaviour
     private bool recovering;
     private float recoilLength;
     private float recoverLength;
+
+    private Vector3 currentRot;
+    private Vector3 targetRot;
+
+    private MouseLook ml;
 
 
     private float nextFire;
@@ -60,6 +73,8 @@ public class Weapon : MonoBehaviour
 
         recoilLength = 0;
         recoverLength = 1 / fireRate * recoverPercent;
+
+        ml = cam.GetComponent<MouseLook>();
     }
 
     // Update is called once per frame
@@ -92,6 +107,13 @@ public class Weapon : MonoBehaviour
             Recover();
         }
 
+        targetRot = Vector3.Lerp(targetRot, Vector3.zero, returnSpeed * Time.deltaTime);
+        currentRot = Vector3.Slerp(currentRot, targetRot, snappiness * Time.fixedDeltaTime);
+
+        ml.SetNextTween(currentRot);
+
+
+
     }
 
     void Reload() {
@@ -121,12 +143,15 @@ public class Weapon : MonoBehaviour
 
         if (Physics.Raycast(ray.origin, ray.direction, out hit, 100f)) {
 
+            PhotonView view = hit.transform.gameObject.GetComponent<PhotonView>();
+            Health health = hit.transform.gameObject.GetComponent<Health>();
+
             if (hit.transform.gameObject != owner) {
                 PhotonNetwork.Instantiate(hitVFX.name, hit.point, Quaternion.identity);
             }
             
-            if (hit.transform.gameObject.GetComponent<Health>() && hit.transform.gameObject != owner && (hit.transform.gameObject.GetComponent<Health>().team != owner.GetComponent<Health>().team || owner.GetComponent<Health>().team == Health.Team.NONE)) {
-                hit.transform.gameObject.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.All, damage);
+            if (health && hit.transform.gameObject != owner && health.team != owner.GetComponent<Health>().team && health.team != Health.Team.NONE) {
+                view.RPC("TakeDamage", RpcTarget.All, damage);
             }
 
             if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Moveable")) {
@@ -165,7 +190,9 @@ public class Weapon : MonoBehaviour
             recovering = true;
         }
 
-        cam.transform.DOLocalRotate(new Vector3(cam.transform.localEulerAngles.x - 1.0f,0,0), 0.25f);
+        // cam.transform.DOLocalRotate(new Vector3(cam.transform.localEulerAngles.x - 1.0f,0,0), 0.25f);
+
+        targetRot += new Vector3(recoilX, Random.Range(-recoilY, recoilY), Random.Range(-recoilZ, recoilZ));
 
     }
 

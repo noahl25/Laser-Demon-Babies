@@ -27,6 +27,8 @@ public class MouseLook : MonoBehaviour
 
     private Vector2 mouseDelta;
 
+    private Vector3 nextTween;
+
     [HideInInspector]
     public bool scoped;
 
@@ -93,12 +95,18 @@ public class MouseLook : MonoBehaviour
             var yRotation = Quaternion.AngleAxis(_mouseAbsolute.x, transform.InverseTransformDirection(Vector3.up));
             transform.localRotation *= yRotation;
         }
+
+        transform.DOLocalRotate(nextTween, 0.35f);
     }
 
     public void ToFov(float end) {
         GetComponent<Camera>().DOFieldOfView(end, 0.25f);
     }
     public void Tilt(float tilt) {
-        transform.DOLocalRotate(new Vector3(0,0,tilt), 0.25f);
+        nextTween.z = tilt;
+    }
+    public void SetNextTween(Vector3 next) {
+        nextTween.x = next.x;
+        nextTween.y = next.y;
     }
 }

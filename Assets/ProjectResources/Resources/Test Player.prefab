@@ -448,6 +448,8 @@ MonoBehaviour:
   grappleGun: {fileID: 1342607821541693480}
   grappleForce: 30
   maxDistance: 20
+  upwardForce: 0
+  set: 0
 --- !u!120 &7178206914905312050
 LineRenderer:
   serializedVersion: 2
@@ -1080,6 +1082,7 @@ MonoBehaviour:
   lockCursor: 1
   smoothing: {x: 3, y: 3}
   characterBody: {fileID: 71443420741628654}
+  camHolder: {fileID: 0}
   scoped: 0
 --- !u!114 &6834474338033828514
 MonoBehaviour:
@@ -1238,10 +1241,23 @@ MonoBehaviour:
   hitVFX: {fileID: 1141330259687333427, guid: 6fc0756bc1b9d1242b018cf48b2f18b2, type: 3}
   muzzleFlash: {fileID: 7177991128484655659, guid: b72d096b34b1dc14db0cc4e1bc3212c4, type: 3}
   muzzleFlashSpawn: {fileID: 813934220245470732}
+  laserSFX: {fileID: 0}
+  outSFX: {fileID: 0}
+  playAt: {fileID: 0}
   shakeMag: {x: 0.01, y: 0.01, z: 0}
   shakeDur: 0.1
+  mag: 5
+  ammo: 30
+  magAmmo: 30
+  magText: {fileID: 0}
+  ammoText: {fileID: 0}
   owner: {fileID: 71443420741628654}
   moveForce: 100
+  animation: {fileID: 0}
+  reloadAnimation: {fileID: 0}
+  recoverPercent: 0.7
+  recoilUp: 1
+  recoilBack: 0
 --- !u!4 &2385130310840315477 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 6a64651c715edd2428104e893b882c5c, type: 3}

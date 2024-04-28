@@ -14,7 +14,7 @@ public class Health : MonoBehaviour
         NONE
     }
 
-    public Team team = Team.NONE;
+    public Team team;
 
     public int health;
     public bool isLocalPlayer;
@@ -24,14 +24,28 @@ public class Health : MonoBehaviour
 
     [PunRPC]
     public void TakeDamage(int damage) {
+
         health -= damage;
 
         healthText.text = health.ToString();
 
-        if (health < 0) {
+        if (health <= 0) {
             if (isLocalPlayer) 
                 RoomManager.instance.SpawnPlayer();
             Destroy(gameObject);
+        } 
+
+    }
+
+    [PunRPC]
+    public void SyncTeams(Team _team) {
+        team = _team;
+
+        if (_team == Team.RED) {
+            gameObject.transform.GetChild(0).gameObject.SetActive(true);
+        }
+        else {
+            gameObject.transform.GetChild(1).gameObject.SetActive(true);
         }
 
     }

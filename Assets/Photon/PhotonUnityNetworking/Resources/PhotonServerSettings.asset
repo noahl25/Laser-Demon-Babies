@@ -40,6 +40,11 @@ MonoBehaviour:
   - Fire
   - RespawnSpaceship
   - TakeDamage
+  - GetTeam
+  - SetTeam
+  - UpdateTeam
+  - SyncTeams
+  - SetName
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

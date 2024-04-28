@@ -86,9 +86,11 @@ public class Movement : MonoBehaviour
         SpeedControl();
         StateHandler();
 
-        if (Input.GetKey(sprintKey))
-            ml.ToFov(68f);
-        else if (!wallrunning)
+        if (wallrunning)
+            ml.ToFov(80f);
+        else if (Input.GetKey(sprintKey))
+            ml.ToFov(70f);
+        else 
             ml.ToFov(60f);
 
 
@@ -145,6 +147,7 @@ public class Movement : MonoBehaviour
             state = MovementState.air;
             moveSpeed = sprintSpeed;
         }
+        
     }
 
     private void MovePlayer()

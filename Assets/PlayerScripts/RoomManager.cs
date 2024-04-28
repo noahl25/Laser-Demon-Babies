@@ -19,6 +19,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     private RoomList.GameType gameType;
 
+    private string playerName = "unnnamed";
 
     void Awake() {
 
@@ -31,8 +32,12 @@ public class RoomManager : MonoBehaviourPunCallbacks
     {
         GameObject gameSelect = GameObject.FindWithTag("GameSelection");
 
-        roomNameToJoin = gameSelect.GetComponent<RoomList>().futureRoomName;
-        gameType = gameSelect.GetComponent<RoomList>().gameType;
+        RoomList roomListComponent = gameSelect.GetComponent<RoomList>();
+
+        roomNameToJoin = roomListComponent.futureRoomName;
+        gameType = roomListComponent.gameType;
+        playerName = roomListComponent.futurePlayerName;
+
 
         Debug.Log("Connecting...");
 
@@ -42,6 +47,10 @@ public class RoomManager : MonoBehaviourPunCallbacks
         roomOptions.CustomRoomProperties = properties;
 
         PhotonNetwork.JoinOrCreateRoom(roomNameToJoin, roomOptions, null);
+    }
+
+    public void ChangeName(string _name) {
+        name = _name;
     }
 
     public override void OnJoinedRoom()
@@ -61,27 +70,29 @@ public class RoomManager : MonoBehaviourPunCallbacks
         _player.GetComponent<PlayerSetup>().IsLocalPlayer();
         _player.GetComponent<Health>().isLocalPlayer = true;
 
+        Health.Team team = Health.Team.NONE;
+
         if ((string)PhotonNetwork.CurrentRoom.CustomProperties["gamemode"] == "tdm") {
 
-            Health.Team team;
 
-            if (Random.Range(0, 1) == 0) {
+            if (Random.value >= 0.5f) {
                 team = Health.Team.BLUE;
                 _player.transform.GetChild(1).gameObject.SetActive(true);
  
             }
             else {
+
                 team = Health.Team.RED;
                 _player.transform.GetChild(0).gameObject.SetActive(true);
  
             }
-
-            _player.GetComponent<Health>().team = team;
-
-
+            team = Health.Team.RED;
+            _player.GetComponent<PhotonView>().RPC("SyncTeams", RpcTarget.AllBuffered, team);
+            _player.GetComponent<TeamIndicator>().SetTeamText(team.ToString());
         }
 
-        
+        _player.GetComponent<PhotonView>().RPC("SetName", RpcTarget.AllBuffered, playerName, team);
+        _player.GetComponent<PlayerSetup>().HideName();
 
     }
 }

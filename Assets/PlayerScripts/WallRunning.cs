@@ -101,7 +101,6 @@ public class WallRunning : MonoBehaviour
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
         if (ml != null) {
-            ml.ToFov(70f);
             if (wallLeft)
                 ml.Tilt(-5f);
             if (wallRight)
