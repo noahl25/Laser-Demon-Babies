@@ -54,6 +54,11 @@ public class Movement : MonoBehaviour
     public Grapple grapple;
     public Vector3 startPos;
 
+    [Header("Animation")]
+    public Animation handAnimation;
+    public AnimationClip handWalkAnimation;
+    public AnimationClip idleAnimation;
+
     [HideInInspector] public MovementState state;
 
     public enum MovementState {
@@ -75,6 +80,9 @@ public class Movement : MonoBehaviour
         readyToJump = true;
 
         startYScale = transform.localScale.y;
+
+        handAnimation.AddClip(handWalkAnimation, "walk");
+        handAnimation.AddClip(idleAnimation, "idle");
     }
 
     private void Update()
@@ -106,6 +114,7 @@ public class Movement : MonoBehaviour
     {
         MovePlayer();
     }
+
 
     private void PlayerInput()
     {
@@ -152,7 +161,25 @@ public class Movement : MonoBehaviour
 
     private void MovePlayer()
     {
-        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+
+        moveDirection = transform.forward * verticalInput + transform.right * horizontalInput;
+
+        Vector2 mag = new Vector2(horizontalInput, verticalInput);
+
+        if (!Weapon.doingAction && grounded) {
+            if (mag.magnitude > 0.5f) {
+                handAnimation.CrossFade("walk", 0.5f);
+            }
+            else {
+                handAnimation.CrossFade("idle", 0.5f);
+            }
+
+        }
+        else {
+            handAnimation.Stop();
+        }
+
+     //   Debug.Log(Weapon.doingAction);
         
         if (OnSlope() && !exitingSlope) {
             rb.AddForce(GetSlopeMoveDirection() * moveSpeed * 20f, ForceMode.Force);

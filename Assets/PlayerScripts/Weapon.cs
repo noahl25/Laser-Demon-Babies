@@ -41,6 +41,7 @@ public class Weapon : MonoBehaviour
     public float moveForce;
     public Animation animation;
     public AnimationClip reloadAnimation;
+    public PlayerPhotonSoundManager playerPhotonSoundManager;
     [Header("Recoil")]
     [Range(0, 2)]
     public float recoverPercent = 0.7f;
@@ -67,10 +68,9 @@ public class Weapon : MonoBehaviour
 
     private MouseLook ml;
 
-    
-
-
     private float nextFire;
+
+    public static bool doingAction = false;
 
     void Start() {
         magText.text = mag.ToString();
@@ -86,18 +86,10 @@ public class Weapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("1"))
-        {
-            basicgun.SetActive(true);
-            scopedgun.SetActive(false);
-        }
 
-        if (Input.GetKeyDown("2"))
-        {
-            basicgun.SetActive(false);
-            scopedgun.SetActive(true);
+        if (!animation.isPlaying) {
+            doingAction = false;
         }
-
         if (nextFire > 0)
             nextFire -= Time.deltaTime;
         
@@ -106,6 +98,7 @@ public class Weapon : MonoBehaviour
             ammo--;
             magText.text = mag.ToString();
             ammoText.text = ammo + "/" + magAmmo;
+            //doingAction = true;
             Fire();
         }
 
@@ -114,6 +107,7 @@ public class Weapon : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.R) && mag > 0 && !animation.isPlaying) {
+          //  doingAction = true;
             Reload();
         }
 
@@ -123,6 +117,7 @@ public class Weapon : MonoBehaviour
         if (recovering) {
             Recover();
         }
+
 
         targetRot = Vector3.Lerp(targetRot, Vector3.zero, returnSpeed * Time.deltaTime);
         currentRot = Vector3.Slerp(currentRot, targetRot, snappiness * Time.fixedDeltaTime);
@@ -144,10 +139,12 @@ public class Weapon : MonoBehaviour
 
         magText.text = mag.ToString();
         ammoText.text = ammo + "/" + magAmmo;
+       // doingAction = true;
     }
 
     void Fire() {
 
+        //doingAction = true;
         FX();
         CameraShake();
 
@@ -169,15 +166,36 @@ public class Weapon : MonoBehaviour
                 PhotonNetwork.Instantiate(hitVFX.name, hit.point, Quaternion.identity);
             }
             
-            if (health && hit.transform.gameObject != owner && health.team != owner.GetComponent<Health>().team && health.team != Health.Team.NONE) {
-                
-                PhotonNetwork.LocalPlayer.AddScore(damage);
+            if (health && hit.transform.gameObject != owner) {
 
-                if (damage >= hit.transform.gameObject.GetComponent<Health>().health) {
-                    PhotonNetwork.LocalPlayer.AddScore(100);
+
+                if ((string)PhotonNetwork.CurrentRoom.CustomProperties["gamemode"] == "tdm") {
+
+                    if (health.team != owner.GetComponent<Health>().team) {
+
+                        PhotonNetwork.LocalPlayer.AddScore(damage);
+
+                        if (damage >= hit.transform.gameObject.GetComponent<Health>().health) {
+                            PhotonNetwork.LocalPlayer.AddScore(100);
+                        }
+
+                        view.RPC("TakeDamage", RpcTarget.All, damage);
+
+                    }
+
                 }
 
-                view.RPC("TakeDamage", RpcTarget.All, damage);
+                else {
+                
+                    PhotonNetwork.LocalPlayer.AddScore(damage);
+
+                    if (damage >= hit.transform.gameObject.GetComponent<Health>().health) {
+                        PhotonNetwork.LocalPlayer.AddScore(100);
+                    }
+
+                    view.RPC("TakeDamage", RpcTarget.All, damage);
+                    
+                }
             }
 
             if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Moveable")) {
@@ -196,7 +214,7 @@ public class Weapon : MonoBehaviour
         GameObject flash = PhotonNetwork.Instantiate(muzzleFlash.name, muzzleFlashSpawn.position, Quaternion.identity);
         flash.GetComponent<FlashMove>().moveTo = muzzleFlashSpawn;
 
-        AudioSource.PlayClipAtPoint(laserSFX, playAt.position);
+        playerPhotonSoundManager.PlayLaserSFX();
 
     }
 

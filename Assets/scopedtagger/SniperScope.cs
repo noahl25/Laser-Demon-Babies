@@ -20,7 +20,7 @@ public class SniperScope : MonoBehaviour
             isScoped = !isScoped;
             animator.SetBool("Scoped", isScoped);
             Scope.SetActive(isScoped);
-            Debug.Log("scope");
+          //  Debug.Log("scope");
 
             if (isScoped)
                 OnScoped();

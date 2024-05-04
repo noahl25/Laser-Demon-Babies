@@ -50,6 +50,8 @@ public class WallRunning : MonoBehaviour
     void Update()
     {
         CheckForWall();
+
+
         States();
     }
 

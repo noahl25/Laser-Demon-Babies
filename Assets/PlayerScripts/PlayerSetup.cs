@@ -13,25 +13,30 @@ public class PlayerSetup : MonoBehaviour
     public WallRunning wallrun;
     public Jetpack jetpack;
     public GameObject orientation;
-    public AudioListener listener;
+    public Transform syncedWeaponHolder;
     [Header("Setup")]
     public Image overlay;
     public float fadeInDur;
     public TextMeshPro nameText;
     public GameObject nameHolder;
+    public GameObject demonBabyMesh;
 
     [HideInInspector] public string playerName;
 
     public void IsLocalPlayer() {
+
+        syncedWeaponHolder.gameObject.SetActive(false);
+
         Application.targetFrameRate = -1;
         movement.enabled = true;
         wallrun.enabled = true;
         jetpack.enabled = true;
-        listener.enabled = true;
-        cam.SetActive(true);
         orientation.SetActive(true);
+        cam.SetActive(true);
         Debug.Log("Set local.");
         StartCoroutine("FadeIn");
+
+        GetComponent<PhotonView>().RPC("SetupSyncedWeapons", RpcTarget.OthersBuffered, 0);
         
     }
 
@@ -47,6 +52,17 @@ public class PlayerSetup : MonoBehaviour
     }
 
     [PunRPC]
+    public void SetupSyncedWeapons(int weaponIndex) {
+
+        foreach (Transform weapon in syncedWeaponHolder) {
+            weapon.gameObject.SetActive(false);
+        }
+
+        syncedWeaponHolder.GetChild(weaponIndex).gameObject.SetActive(true);
+
+    }
+
+    [PunRPC]
     public void SetName(string _name, Health.Team team) {
         playerName = _name;
         nameText.text = _name;
@@ -58,5 +74,10 @@ public class PlayerSetup : MonoBehaviour
             nameText.color = new Color(0, 0, 255, 255);
         }
 
+    }
+
+    [PunRPC]
+    public void SetupMeshes() {
+        demonBabyMesh.SetActive(true);
     }
 }

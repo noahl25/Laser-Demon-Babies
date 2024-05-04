@@ -61,6 +61,8 @@ public class RoomList : MonoBehaviourPunCallbacks
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList) {
 
+        Debug.Log(roomList.Count);
+
         if (cachedRoomList.Count <= 0) {
             cachedRoomList = roomList;
         }

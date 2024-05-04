@@ -89,13 +89,16 @@ public class RoomManager : MonoBehaviourPunCallbacks
                 }
             }
 
-            _player.GetComponent<PhotonView>().RPC("SyncTeams", RpcTarget.AllBuffered, playerTeam);
+            _player.GetComponent<PhotonView>().RPC("SyncTeams", RpcTarget.OthersBuffered, playerTeam);
+            _player.transform.GetChild(0).gameObject.SetActive(false);
+            _player.transform.GetChild(1).gameObject.SetActive(false);
             _player.GetComponent<TeamIndicator>().SetTeamText(playerTeam.ToString());
 
         }
 
-        _player.GetComponent<PhotonView>().RPC("SetName", RpcTarget.AllBuffered, playerName, playerTeam);
+        _player.GetComponent<PhotonView>().RPC("SetName", RpcTarget.OthersBuffered, playerName, playerTeam);
         _player.GetComponent<PlayerSetup>().HideName();
+        _player.GetComponent<PhotonView>().RPC("SetupMeshes", RpcTarget.OthersBuffered);
 
         PhotonNetwork.LocalPlayer.NickName = playerName;
 
