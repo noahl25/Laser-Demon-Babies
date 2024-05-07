@@ -8,15 +8,18 @@ public class PlayerPhotonAnimationManager : MonoBehaviour
     public AnimationClip walk;
     public AnimationClip idle;
 
-    public Animation _animation;
+    public Animation anim;
 
     private PhotonView view;
 
     void Start() {
-        _animation.AddClip(walk, "walk");
-        _animation.AddClip(idle, "idle");
 
-        view = GetComponent<PhotonView>();
+        if (anim != null) {
+            anim.AddClip(walk, "walk");
+            anim.AddClip(idle, "idle");
+
+            view = GetComponent<PhotonView>();
+        }
     }
 
     public void PlayWalkAnimationSynced() {
@@ -30,7 +33,7 @@ public class PlayerPhotonAnimationManager : MonoBehaviour
 
     [PunRPC]
     private void PlayAnimation(string clip) {
-        _animation.CrossFade(clip, 0.5f);
+        anim.CrossFade(clip, 0.5f);
     }
 
 }

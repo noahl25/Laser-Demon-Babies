@@ -1585,6 +1585,7 @@ MonoBehaviour:
   handAnimation: {fileID: 1668251393516701589}
   handWalkAnimation: {fileID: 7400000, guid: 81943d761b238804f819100dfe79a532, type: 2}
   idleAnimation: {fileID: 7400000, guid: 0640ddc55c534794a98ed343720d6cf4, type: 2}
+  photonAnimationManager: {fileID: 2046851010571429883}
   state: 0
   wallrunning: 0
 --- !u!54 &799344753859418907
@@ -1717,6 +1718,7 @@ MonoBehaviour:
   nameText: {fileID: 6905452159563674118}
   nameHolder: {fileID: 1266382426681839585}
   demonBabyMesh: {fileID: 3911203120759522470}
+  photonAnimationManager: {fileID: 0}
   playerName: 
 --- !u!114 &2605211482994820982
 MonoBehaviour:
@@ -1833,7 +1835,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walk: {fileID: 7400000, guid: 8779e84a9520b7f4cac0b85413600a64, type: 2}
   idle: {fileID: 7400000, guid: 7b013c761f9cf65479ff4d0b36bbddac, type: 2}
-  animation: {fileID: 2732857710505571375}
+  anim: {fileID: 2732857710505571375}
 --- !u!1 &4931618574561471547
 GameObject:
   m_ObjectHideFlags: 0
@@ -2017,7 +2019,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1302843963895517620
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2864,7 +2866,6 @@ GameObject:
   - component: {fileID: 380033161239563243}
   - component: {fileID: 7076589201976842959}
   - component: {fileID: 7135727968319281920}
-  - component: {fileID: 6550217956354123050}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3030,22 +3031,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46ee815225c5c9d4a96c4230ae0c42ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6550217956354123050
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8608663742460041010}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ab8353b5ebd32545867da143199a814, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DefaultPosInfluence: {x: 0.05, y: 0.04, z: 0}
-  DefaultRotInfluence: {x: 0, y: 0, z: 0}
-  RestPositionOffset: {x: 0, y: 0, z: 0}
-  RestRotationOffset: {x: 0, y: 0, z: 0}
 --- !u!1001 &4217070564894341623
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3677,9 +3662,9 @@ MonoBehaviour:
   ammoText: {fileID: 9117560040165917620}
   owner: {fileID: 4654791684213557670}
   moveForce: 100
-  animation: {fileID: 3647498261399286248}
+  anim: {fileID: 3647498261399286248}
   reloadAnimation: {fileID: 7400000, guid: 4316415cb4226e44faa64fcd6b5377a6, type: 2}
-  playerPhotonSoundManager: {fileID: 0}
+  playerPhotonSoundManager: {fileID: 1845100164360626425}
   recoverPercent: 0.7
   recoilUp: 1
   recoilBack: 0
@@ -4202,7 +4187,7 @@ MonoBehaviour:
   ammoText: {fileID: 9117560040165917620}
   owner: {fileID: 4654791684213557670}
   moveForce: 100
-  animation: {fileID: 6628389498982558572}
+  anim: {fileID: 6628389498982558572}
   reloadAnimation: {fileID: 7400000, guid: 4316415cb4226e44faa64fcd6b5377a6, type: 2}
   playerPhotonSoundManager: {fileID: 1845100164360626425}
   recoverPercent: 0.7

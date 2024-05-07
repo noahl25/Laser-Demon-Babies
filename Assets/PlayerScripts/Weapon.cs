@@ -36,7 +36,7 @@ public class Weapon : MonoBehaviour
     [Header("Other")]
     public GameObject owner;
     public float moveForce;
-    public Animation _animation;
+    public Animation anim;
     public AnimationClip reloadAnimation;
     public PlayerPhotonSoundManager playerPhotonSoundManager;
     [Header("Recoil")]
@@ -84,13 +84,13 @@ public class Weapon : MonoBehaviour
     void Update()
     {
 
-        if (!_animation.isPlaying) {
+        if (!anim.isPlaying) {
             doingAction = false;
         }
         if (nextFire > 0)
             nextFire -= Time.deltaTime;
         
-        if (Input.GetButton("Fire1") && nextFire <= 0 && ammo > 0 && !_animation.isPlaying) {
+        if (Input.GetButton("Fire1") && nextFire <= 0 && ammo > 0 && !anim.isPlaying) {
             nextFire = 1 / fireRate;
             ammo--;
             magText.text = mag.ToString();
@@ -103,7 +103,7 @@ public class Weapon : MonoBehaviour
             AudioSource.PlayClipAtPoint(outSFX, playAt.position);
         }
 
-        if (Input.GetKeyDown(KeyCode.R) && mag > 0 && !_animation.isPlaying) {
+        if (Input.GetKeyDown(KeyCode.R) && mag > 0 && !anim.isPlaying) {
           //  doingAction = true;
             Reload();
         }
@@ -127,7 +127,7 @@ public class Weapon : MonoBehaviour
 
     void Reload() {
 
-        _animation.Play(reloadAnimation.name);
+        anim.Play(reloadAnimation.name);
 
         if (mag > 0) {
             mag--;

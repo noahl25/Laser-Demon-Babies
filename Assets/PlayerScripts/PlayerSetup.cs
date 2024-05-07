@@ -20,6 +20,7 @@ public class PlayerSetup : MonoBehaviour
     public TextMeshPro nameText;
     public GameObject nameHolder;
     public GameObject demonBabyMesh;
+    public PlayerPhotonAnimationManager photonAnimationManager;
 
     [HideInInspector] public string playerName;
 
