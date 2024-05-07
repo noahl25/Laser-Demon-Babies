@@ -49,6 +49,7 @@ MonoBehaviour:
   - SetupSyncedWeapons
   - PlayFootstepSFX_RPC
   - PlayLaserSFX_RPC
+  - PlayAnimation
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

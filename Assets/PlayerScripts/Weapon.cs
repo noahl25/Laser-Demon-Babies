@@ -14,8 +14,6 @@ public class Weapon : MonoBehaviour
     public int damage;
     public float fireRate;
     public Camera cam;
-    public GameObject cameraHolder;
-    public CameraShake camShake;
 
     [Header("VFX")]
     public GameObject hitVFX;
@@ -27,8 +25,7 @@ public class Weapon : MonoBehaviour
     public AudioClip outSFX;
     public Transform playAt;
     [Space]
-    public Vector3 shakeMag;
-    public float shakeDur;
+    public float shakeMag;
     [Header("Ammo")]
     public int mag = 5;
     public int ammo = 30;
@@ -39,7 +36,7 @@ public class Weapon : MonoBehaviour
     [Header("Other")]
     public GameObject owner;
     public float moveForce;
-    public Animation animation;
+    public Animation _animation;
     public AnimationClip reloadAnimation;
     public PlayerPhotonSoundManager playerPhotonSoundManager;
     [Header("Recoil")]
@@ -87,13 +84,13 @@ public class Weapon : MonoBehaviour
     void Update()
     {
 
-        if (!animation.isPlaying) {
+        if (!_animation.isPlaying) {
             doingAction = false;
         }
         if (nextFire > 0)
             nextFire -= Time.deltaTime;
         
-        if (Input.GetButton("Fire1") && nextFire <= 0 && ammo > 0 && !animation.isPlaying) {
+        if (Input.GetButton("Fire1") && nextFire <= 0 && ammo > 0 && !_animation.isPlaying) {
             nextFire = 1 / fireRate;
             ammo--;
             magText.text = mag.ToString();
@@ -106,7 +103,7 @@ public class Weapon : MonoBehaviour
             AudioSource.PlayClipAtPoint(outSFX, playAt.position);
         }
 
-        if (Input.GetKeyDown(KeyCode.R) && mag > 0 && !animation.isPlaying) {
+        if (Input.GetKeyDown(KeyCode.R) && mag > 0 && !_animation.isPlaying) {
           //  doingAction = true;
             Reload();
         }
@@ -130,7 +127,7 @@ public class Weapon : MonoBehaviour
 
     void Reload() {
 
-        animation.Play(reloadAnimation.name);
+        _animation.Play(reloadAnimation.name);
 
         if (mag > 0) {
             mag--;
@@ -220,7 +217,7 @@ public class Weapon : MonoBehaviour
 
     void CameraShake() {
 
-        StartCoroutine(camShake.shake(shakeMag, shakeDur));
+       // CameraShaker.Instance.ShakeOnce(shakeMag, 3.0f, 0.1f, 0.3f);
 
     }
 

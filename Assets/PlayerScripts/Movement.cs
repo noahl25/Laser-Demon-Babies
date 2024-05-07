@@ -58,6 +58,7 @@ public class Movement : MonoBehaviour
     public Animation handAnimation;
     public AnimationClip handWalkAnimation;
     public AnimationClip idleAnimation;
+    public PlayerPhotonAnimationManager photonAnimationManager;
 
     [HideInInspector] public MovementState state;
 
@@ -167,7 +168,7 @@ public class Movement : MonoBehaviour
         Vector2 mag = new Vector2(horizontalInput, verticalInput);
 
         if (!Weapon.doingAction && grounded) {
-            if (mag.magnitude > 0.5f) {
+            if (mag.magnitude >= 0.5f) {
                 handAnimation.CrossFade("walk", 0.5f);
             }
             else {
@@ -179,7 +180,12 @@ public class Movement : MonoBehaviour
             handAnimation.Stop();
         }
 
-     //   Debug.Log(Weapon.doingAction);
+        if (mag.magnitude >= 0.5f) {
+            photonAnimationManager.PlayWalkAnimationSynced();
+        }
+        else {
+            photonAnimationManager.PlayIdleAnimationSynced();
+        }
         
         if (OnSlope() && !exitingSlope) {
             rb.AddForce(GetSlopeMoveDirection() * moveSpeed * 20f, ForceMode.Force);
