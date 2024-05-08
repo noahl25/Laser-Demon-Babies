@@ -12,7 +12,7 @@ public class PlayerPhotonAnimationManager : MonoBehaviour
 
     private PhotonView view;
 
-    void Start() {
+    public void Init() {
 
         if (anim != null) {
             anim.AddClip(walk, "walk");

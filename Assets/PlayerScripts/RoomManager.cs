@@ -99,6 +99,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
         _player.GetComponent<PhotonView>().RPC("SetName", RpcTarget.OthersBuffered, playerName, playerTeam);
         _player.GetComponent<PlayerSetup>().HideName();
         _player.GetComponent<PhotonView>().RPC("SetupMeshes", RpcTarget.OthersBuffered);
+        _player.GetComponent<PhotonView>().RPC("SetupAnimations", RpcTarget.OthersBuffered);
 
         PhotonNetwork.LocalPlayer.NickName = playerName;
 
