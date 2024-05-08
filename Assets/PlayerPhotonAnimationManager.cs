@@ -11,17 +11,11 @@ public class PlayerPhotonAnimationManager : MonoBehaviour
     public Animation anim;
 
     private PhotonView view;
+    
+    private bool animationsSet = false;
 
     void Start() {
         view = GetComponent<PhotonView>();
-    }
-
-    public void Init() {
-
-        if (anim != null) {
-            anim.AddClip(walk, "walk");
-            anim.AddClip(idle, "idle");
-        }
     }
 
     public void PlayWalkAnimationSynced() {
@@ -35,7 +29,15 @@ public class PlayerPhotonAnimationManager : MonoBehaviour
 
     [PunRPC]
     private void PlayAnimation(string clip) {
+
+        if (anim != null && !animationsSet) {
+            anim.AddClip(walk, "walk");
+            anim.AddClip(idle, "idle");
+            animationsSet = true;
+        }
+
         anim.CrossFade(clip, 0.5f);
+        
     }
 
 }

@@ -82,8 +82,4 @@ public class PlayerSetup : MonoBehaviour
         demonBabyMesh.SetActive(true);
     }
 
-    [PunRPC]
-    public void SetupAnimations() {
-        photonAnimationManager.Init();
-    }
 }
