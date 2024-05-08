@@ -12,13 +12,15 @@ public class PlayerPhotonAnimationManager : MonoBehaviour
 
     private PhotonView view;
 
+    void Start() {
+        view = GetComponent<PhotonView>();
+    }
+
     public void Init() {
 
         if (anim != null) {
             anim.AddClip(walk, "walk");
             anim.AddClip(idle, "idle");
-
-            view = GetComponent<PhotonView>();
         }
     }
 
