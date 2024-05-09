@@ -548,7 +548,7 @@ GameObject:
   - component: {fileID: 84825444}
   - component: {fileID: 84825447}
   - component: {fileID: 84825446}
-  - component: {fileID: 84825445}
+  - component: {fileID: 84825448}
   m_Layer: 6
   m_Name: Player 3
   m_TagString: Untagged
@@ -571,29 +571,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 522451217}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &84825445
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 84825443}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!23 &84825446
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -644,6 +621,27 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 84825443}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &84825448
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84825443}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 2, z: 1.0000001}
+  m_Center: {x: 0.00000017881393, y: 0, z: -0.00000008940696}
 --- !u!1 &266818644
 GameObject:
   m_ObjectHideFlags: 0
@@ -1480,7 +1478,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 467054680}
-  numPlayers: 0
 --- !u!1 &488028732
 GameObject:
   m_ObjectHideFlags: 0
@@ -2261,7 +2258,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 890753867}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1427880051}
+        m_TargetAssemblyTypeName: TestRoomManager, Assembly-CSharp
+        m_MethodName: Ready
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &890753867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2813,9 +2822,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1427880050}
   - component: {fileID: 1427880051}
+  - component: {fileID: 1427880052}
+  - component: {fileID: 1427880053}
   m_Layer: 0
-  m_Name: Room
-  m_TagString: Untagged
+  m_Name: RoomManager
+  m_TagString: GameSelection
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2848,9 +2859,50 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 71443420741628654, guid: 306d2676b6e980c4ba7e5cd0d4777e8d, type: 3}
-  spawnParent: {fileID: 467054682}
-  spawnPoint: {fileID: 467054681}
+  spawnPoint: {x: 0, y: 0, z: 0}
   loadingText: {fileID: 851246613}
+--- !u!114 &1427880052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1427880049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 1
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &1427880053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1427880049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72abe8295260e96439a395bae100199c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomListParent: {fileID: 0}
+  roomListItemPrefab: {fileID: 0}
+  createRoomName: {fileID: 0}
+  TDMToggle: {fileID: 0}
+  FFAToggle: {fileID: 0}
+  futureRoomName: test
+  gameType: 0
+  futurePlayerName: unnamed
 --- !u!1 &1503956966
 GameObject:
   m_ObjectHideFlags: 0
@@ -3111,7 +3163,7 @@ GameObject:
   - component: {fileID: 1675853979}
   - component: {fileID: 1675853982}
   - component: {fileID: 1675853981}
-  - component: {fileID: 1675853980}
+  - component: {fileID: 1675853983}
   m_Layer: 6
   m_Name: Player 1
   m_TagString: Untagged
@@ -3134,29 +3186,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 522451217}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &1675853980
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1675853978}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!23 &1675853981
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3207,6 +3236,27 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1675853978}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &1675853983
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1675853978}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 2, z: 1.0000001}
+  m_Center: {x: 0.00000005960464, y: 0, z: -0.00000008940696}
 --- !u!1 &1692271003
 GameObject:
   m_ObjectHideFlags: 0
@@ -3218,7 +3268,7 @@ GameObject:
   - component: {fileID: 1692271004}
   - component: {fileID: 1692271007}
   - component: {fileID: 1692271006}
-  - component: {fileID: 1692271005}
+  - component: {fileID: 1692271008}
   m_Layer: 6
   m_Name: Player 2
   m_TagString: Untagged
@@ -3241,29 +3291,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 522451217}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &1692271005
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1692271003}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!23 &1692271006
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3314,6 +3341,27 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1692271003}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &1692271008
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1692271003}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 2, z: 1.0000001}
+  m_Center: {x: -0.000000059604645, y: 0, z: -0.00000008940696}
 --- !u!1 &1774405184
 GameObject:
   m_ObjectHideFlags: 0
