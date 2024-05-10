@@ -31,7 +31,6 @@ public class RoomManager : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-        //PhotonNetwork.LeaveRoom();
         GameObject gameSelect = GameObject.FindWithTag("GameSelection");
 
         RoomList roomListComponent = gameSelect.GetComponent<RoomList>();
