@@ -18,6 +18,8 @@ public class TestRoomManager : MonoBehaviourPunCallbacks
     private GameObject _player;
     private int readyPlayers = 0;
     private bool playerReadyStatus = false;
+    public string roomNameToJoin = "testing";
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,7 +45,10 @@ public class TestRoomManager : MonoBehaviourPunCallbacks
         base.OnJoinedLobby();
 
         Debug.Log("Joined lobby.");
-        PhotonNetwork.JoinOrCreateRoom("test", null, null);
+        GameObject gameSelect = GameObject.FindWithTag("GameSelection");
+        RoomList roomListComponent = gameSelect.GetComponent<RoomList>();
+        roomNameToJoin = roomListComponent.futureRoomName;
+        PhotonNetwork.JoinOrCreateRoom(roomNameToJoin, null, null);
     
     }
 
@@ -138,7 +143,9 @@ public class TestRoomManager : MonoBehaviourPunCallbacks
     public void TransportPlayers()
     {
         PhotonNetwork.LeaveRoom();
-        SceneManager.LoadScene("MainMap");
+        PhotonNetwork.AutomaticallySyncScene = true;
+        PhotonNetwork.LoadLevel("MainMap");
+        //SceneManager.LoadScene("MainMap");
 
     }
 

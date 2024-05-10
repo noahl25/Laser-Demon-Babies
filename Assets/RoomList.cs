@@ -27,7 +27,7 @@ public class RoomList : MonoBehaviourPunCallbacks
 
     private List<RoomInfo> cachedRoomList = new List<RoomInfo>();
 
-    public string futureRoomName;
+    [HideInInspector]public string futureRoomName;
     public GameType gameType = GameType.None;
     [HideInInspector] public string futurePlayerName = "unnamed";
 
