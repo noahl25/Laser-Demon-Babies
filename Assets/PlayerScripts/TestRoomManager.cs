@@ -13,15 +13,17 @@ public class TestRoomManager : MonoBehaviourPunCallbacks
     [Space]
     public Vector3 spawnPoint;
     [Space]
-    public TextMeshProUGUI loadingText;
+    public TextMeshProUGUI readyButtonText;
 
     private GameObject _player;
     private int readyPlayers = 0;
+    private bool playerReadyStatus = false;
     // Start is called before the first frame update
     void Start()
     {
          
         DontDestroyOnLoad(this.gameObject);
+        readyButtonText = FindObjectOfType<TextMeshProUGUI>();
         Debug.Log("TestJoinLobby");
         OnConnectedToMaster();
         
@@ -49,7 +51,7 @@ public class TestRoomManager : MonoBehaviourPunCallbacks
     {
         base.OnJoinedRoom();
         Debug.Log("Joined room.");
-        spawnPoint = LobbySpawnPoint.Position(PhotonNetwork.CountOfPlayers);
+        spawnPoint = LobbySpawnPoint.Position(PhotonNetwork.CurrentRoom.PlayerCount);
         _player = PhotonNetwork.Instantiate(player.name, spawnPoint, Quaternion.identity);
         //_player.GetComponent<PlayerSetup>().IsLocalPlayer();
   
@@ -67,37 +69,68 @@ public class TestRoomManager : MonoBehaviourPunCallbacks
 
     public void Ready()
     {
-        //PhotonView photonView = PhotonNetwork.MasterClient.GetComponent<PhotonView>();
         PhotonView photonView = PhotonView.Get(this);
+        if(playerReadyStatus == true)
+        {
+            playerReadyStatus = false;
+            readyButtonText.text = "Ready";
+            photonView.RPC("ReadyRPC", RpcTarget.All, playerReadyStatus);
+            Debug.Log("sent RPC");
+        }
+        else
+        {
+            playerReadyStatus = true;
+            readyButtonText.text = "Unready";
+            photonView.RPC("ReadyRPC", RpcTarget.All, playerReadyStatus);
+            Debug.Log("sent RPC");
+        }
         //PhotonView photonView = PhotonNetwork.MasterClient;
-        photonView.RPC("ReadyRPC", RpcTarget.All);
-        Debug.Log("sent RPC");
+        
 
     }
 
     [PunRPC]
-    public void ReadyRPC()
+    public void ReadyRPC(bool readyState)
     {
         if(!PhotonNetwork.IsMasterClient)
         {
             Debug.Log("Not Master");
             return;
         }
-        readyPlayers = readyPlayers + 1;
-        if(readyPlayers == PhotonNetwork.CountOfPlayers)
+        if(readyState == true)
         {
-            
-            photonView.RPC("TransportPlayers", RpcTarget.All);
-            //PhotonNetwork.AutomaticallySyncScene = true;
-            //PhotonNetwork.LoadLevel("MainMap");
+            readyPlayers = readyPlayers + 1;
+            Debug.Log("Count of players:" + PhotonNetwork.CurrentRoom.PlayerCount);
+            if(readyPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
+            {
+                
+                photonView.RPC("TransportPlayers", RpcTarget.All);
+                //PhotonNetwork.AutomaticallySyncScene = true;
+                //PhotonNetwork.LoadLevel("MainMap");
 
-            //PhotonNetwork.LeaveRoom();
-            //SceneManager.LoadScene("MainMap");
+                //PhotonNetwork.LeaveRoom();
+                //SceneManager.LoadScene("MainMap");
+            }
+            else
+            {
+                Debug.Log("else ready players:" + readyPlayers);
+                return;
+            }
         }
-        else
+        if(readyState == false)
         {
-            Debug.Log(readyPlayers);
-            return;
+            readyPlayers = readyPlayers - 1;
+            Debug.Log("Count of players:" + PhotonNetwork.CurrentRoom.PlayerCount);
+            if(readyPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
+            {
+                
+                photonView.RPC("TransportPlayers", RpcTarget.All);
+            }
+            else
+            {
+                Debug.Log("else ready players:" + readyPlayers);
+                return;
+            }
         }
     }
 
