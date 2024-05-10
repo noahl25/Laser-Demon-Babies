@@ -1582,6 +1582,7 @@ MonoBehaviour:
   orientation: {fileID: 3843333642312500055}
   grapple: {fileID: 3226199395098909367}
   startPos: {x: 20.787676, y: 5.784614, z: -1.503073}
+  cam: {fileID: 1128208124470661519}
   handAnimation: {fileID: 1668251393516701589}
   handWalkAnimation: {fileID: 7400000, guid: 81943d761b238804f819100dfe79a532, type: 2}
   idleAnimation: {fileID: 7400000, guid: 0640ddc55c534794a98ed343720d6cf4, type: 2}
@@ -1719,6 +1720,7 @@ MonoBehaviour:
   nameHolder: {fileID: 1266382426681839585}
   demonBabyMesh: {fileID: 3911203120759522470}
   photonAnimationManager: {fileID: 0}
+  laserHolder: {fileID: 0}
   playerName: 
 --- !u!114 &2605211482994820982
 MonoBehaviour:

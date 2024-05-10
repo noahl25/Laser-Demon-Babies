@@ -53,6 +53,7 @@ public class Movement : MonoBehaviour
     [Header("Refs")]
     public Grapple grapple;
     public Vector3 startPos;
+    public Camera cam;
 
     [Header("Animation")]
     public Animation handAnimation;
@@ -163,7 +164,10 @@ public class Movement : MonoBehaviour
     private void MovePlayer()
     {
 
-        moveDirection = transform.forward * verticalInput + transform.right * horizontalInput;
+        Vector3 forward = new Vector3(cam.transform.forward.x, 0, cam.transform.forward.z);
+        Vector3 right = new Vector3(cam.transform.right.x, 0, cam.transform.forward.z);
+
+        moveDirection = forward * verticalInput + right * horizontalInput;
 
         Vector2 mag = new Vector2(horizontalInput, verticalInput);
 

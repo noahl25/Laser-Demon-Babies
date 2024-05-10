@@ -21,6 +21,7 @@ public class PlayerSetup : MonoBehaviour
     public GameObject nameHolder;
     public GameObject demonBabyMesh;
     public PlayerPhotonAnimationManager photonAnimationManager;
+    public GameObject laserHolder;
 
     [HideInInspector] public string playerName;
 
@@ -60,6 +61,10 @@ public class PlayerSetup : MonoBehaviour
         }
 
         syncedWeaponHolder.GetChild(weaponIndex).gameObject.SetActive(true);
+
+        foreach (Transform weapon in laserHolder.transform) {
+            weapon.gameObject.layer = LayerMask.NameToLayer("Default");
+        }
 
     }
 
