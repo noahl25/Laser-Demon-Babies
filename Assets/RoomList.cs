@@ -123,7 +123,7 @@ public class RoomList : MonoBehaviourPunCallbacks
 
     public void JoinRoomByName(string name) {
         futureRoomName = name;
-        SceneManager.LoadScene("Lobby");
+        SceneManager.LoadScene("MainMap");
     }
 
     public void SetFuturePlayerName(string name) {
@@ -144,7 +144,7 @@ public class RoomList : MonoBehaviourPunCallbacks
             return;
         }
 
-        SceneManager.LoadScene("Lobby");
+        SceneManager.LoadScene("MainMap");
     }
 
 }
