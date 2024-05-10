@@ -3792,6 +3792,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1152684260}
   - component: {fileID: 1152684259}
+  - component: {fileID: 1152684261}
   m_Layer: 0
   m_Name: RoomManager
   m_TagString: Untagged
@@ -3831,6 +3832,14 @@ Transform:
   - {fileID: 1394757243}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!81 &1152684261
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1152684258}
+  m_Enabled: 1
 --- !u!1001 &1165898492
 PrefabInstance:
   m_ObjectHideFlags: 0
