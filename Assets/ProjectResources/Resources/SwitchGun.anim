@@ -577,7 +577,7 @@ AnimationClip:
     script: {fileID: 11500000, guid: ea837ba2bf971e745bb283998f564e12, type: 3}
     flags: 2
   m_SampleRate: 60
-  m_WrapMode: 0
+  m_WrapMode: 1
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
