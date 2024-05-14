@@ -6,6 +6,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
 
+/*
 public class TestRoomManager : MonoBehaviourPunCallbacks
 {
     // Old Code
@@ -19,44 +20,37 @@ public class TestRoomManager : MonoBehaviourPunCallbacks
     private int readyPlayers = 0;
     private bool playerReadyStatus = false;
     public string roomNameToJoin = "testing";
-    private RoomList.GameType gameType;
-
 
     // Start is called before the first frame update
     void Start()
     {
+         
         DontDestroyOnLoad(this.gameObject);
-
         readyButtonText = FindObjectOfType<TextMeshProUGUI>();
         Debug.Log("TestJoinLobby");
+        OnConnectedToMaster();
+        
 
+    }
 
+    public override void OnConnectedToMaster() {
 
+        base.OnConnectedToMaster();
 
+        Debug.Log("Connected to server.");
+        PhotonNetwork.JoinLobby();
+    }
 
+    public override void OnJoinedLobby() {
 
-        //Setting room name
+        base.OnJoinedLobby();
+
+        Debug.Log("Joined lobby.");
         GameObject gameSelect = GameObject.FindWithTag("GameSelection");
         RoomList roomListComponent = gameSelect.GetComponent<RoomList>();
         roomNameToJoin = roomListComponent.futureRoomName;
-        gameType = roomListComponent.gameType;
-        //playerName = roomListComponent.futurePlayerName;
-
-        
-        //Setting Room properties
-        RoomOptions roomOptions = new RoomOptions();
-        ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
-        properties["gamemode"] = (gameType == RoomList.GameType.TDM ? "tdm" : "ffa");
-        roomOptions.CustomRoomProperties = properties;
-
-        //Creating room
-        PhotonNetwork.JoinOrCreateRoom(roomNameToJoin, roomOptions, null);
-
-        //readyButtonText = FindObjectOfType<TextMeshProUGUI>();
-        //Debug.Log("TestJoinLobby");
-        //OnConnectedToMaster();
-        
-
+        PhotonNetwork.JoinOrCreateRoom(roomNameToJoin, null, null);
+    
     }
 
     public override void OnJoinedRoom()
@@ -68,6 +62,8 @@ public class TestRoomManager : MonoBehaviourPunCallbacks
         //_player.GetComponent<PlayerSetup>().IsLocalPlayer();
   
     }
+    //Old code end 
+
 
 
     //my code 
@@ -147,7 +143,7 @@ public class TestRoomManager : MonoBehaviourPunCallbacks
     [PunRPC]
     public void TransportPlayers()
     {
-        //PhotonNetwork.LeaveRoom();
+        PhotonNetwork.LeaveRoom();
         PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.LoadLevel("MainMap");
         //SceneManager.LoadScene("MainMap");
@@ -155,3 +151,4 @@ public class TestRoomManager : MonoBehaviourPunCallbacks
     }
 
 }
+*/
