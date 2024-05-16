@@ -54,6 +54,7 @@ public class Movement : MonoBehaviour
     public Grapple grapple;
     public Vector3 startPos;
     public Camera cam;
+    public Transform playerTransform;
 
     [Header("Animation")]
     public Animation handAnimation;
@@ -164,8 +165,8 @@ public class Movement : MonoBehaviour
     private void MovePlayer()
     {
 
-        Vector3 forward = new Vector3(cam.transform.forward.x, 0, cam.transform.forward.z);
-        Vector3 right = new Vector3(cam.transform.right.x, 0, cam.transform.forward.z);
+        Vector3 forward = new Vector3(transform.forward.x, 0, transform.forward.z);
+        Vector3 right = new Vector3(playerTransform.transform.right.x, 0, playerTransform.transform.right.z);
 
         moveDirection = forward * verticalInput + right * horizontalInput;
 
@@ -198,9 +199,9 @@ public class Movement : MonoBehaviour
                 rb.AddForce(Vector3.down * 200f, ForceMode.Force);
         }
         if(grounded)
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+            rb.AddForce(moveDirection.normalized * moveSpeed * Time.fixedDeltaTime * 10f, ForceMode.Force);
         else
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+            rb.AddForce(moveDirection.normalized * moveSpeed * 10f * Time.fixedDeltaTime * airMultiplier, ForceMode.Force);
 
         if (!wallrunning)
             rb.useGravity = !OnSlope();

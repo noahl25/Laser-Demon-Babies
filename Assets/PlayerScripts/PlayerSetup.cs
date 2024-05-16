@@ -62,9 +62,9 @@ public class PlayerSetup : MonoBehaviour
 
         syncedWeaponHolder.GetChild(weaponIndex).gameObject.SetActive(true);
 
-        foreach (Transform weapon in laserHolder.transform) {
-            weapon.gameObject.layer = LayerMask.NameToLayer("Default");
-        }
+        // foreach (Transform weapon in laserHolder.transform) {
+        //     weapon.gameObject.layer = LayerMask.NameToLayer("Default");
+        // }
 
     }
 

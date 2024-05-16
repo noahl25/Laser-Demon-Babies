@@ -23,11 +23,12 @@ public class WeaponSwitch : MonoBehaviour
     void Start() {
         currentWeapon = weapons[0];
         currentWeapon.SetActive(true);
+        anim.Stop();
     }
 
     void Update() {
 
-        if (anim.isPlaying) {
+        if (anim.IsPlaying(switchGun.name)) {
             isSwitching = true;
         }
         else {
@@ -46,7 +47,7 @@ public class WeaponSwitch : MonoBehaviour
             weaponSelection = 2;
         }
 
-        if (weaponSelection != -1 && weaponSelection < weapons.Length && !anim.isPlaying) {
+        if (weaponSelection != -1 && weaponSelection < weapons.Length && !isSwitching) {
             
             playerPV.RPC("SetupSyncedWeapons", RpcTarget.OthersBuffered, weaponSelection);
             
