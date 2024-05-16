@@ -15,6 +15,9 @@ public class TestRoomManager : MonoBehaviourPunCallbacks
     [Space]
     public TextMeshProUGUI readyButtonText;
 
+    private string playerName = "unnnamed";
+    private Health.Team playerTeam = Health.Team.NONE;
+
     private GameObject _player;
     private int readyPlayers = 0;
     private bool playerReadyStatus = false;
@@ -64,7 +67,14 @@ public class TestRoomManager : MonoBehaviourPunCallbacks
         base.OnJoinedRoom();
         Debug.Log("Joined room.");
         spawnPoint = LobbySpawnPoint.Position(PhotonNetwork.CurrentRoom.PlayerCount);
-        _player = PhotonNetwork.Instantiate(player.name, spawnPoint, Quaternion.identity);
+        //_player = PhotonNetwork.Instantiate(player.name, spawnPoint, Quaternion.identity);
+        _player = PhotonNetwork.Instantiate(player.name, spawnPoint, Quaternion.Euler(0,180,0));
+
+        _player.GetComponent<PhotonView>().RPC("SetName", RpcTarget.OthersBuffered, playerName, playerTeam);
+        //_player.GetComponent<PlayerSetup>().HideName();
+        //_player.GetComponent<PhotonView>().RPC("SetupMeshes", RpcTarget.OthersBuffered);
+        
+        _player.GetComponent<PlayerSetup>().LobbySetup();
         //_player.GetComponent<PlayerSetup>().IsLocalPlayer();
   
     }

@@ -87,4 +87,13 @@ public class PlayerSetup : MonoBehaviour
         demonBabyMesh.SetActive(true);
     }
 
+    public void LobbySetup()
+    {
+        demonBabyMesh.SetActive(true);
+        //set name
+        //playerName = _name;
+        //nameText.text = _name;
+
+    }
+
 }
