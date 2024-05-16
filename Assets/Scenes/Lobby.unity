@@ -4633,9 +4633,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e24e9474990b96744ae1b87c56e1367e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 71443420741628654, guid: 306d2676b6e980c4ba7e5cd0d4777e8d, type: 3}
+  player: {fileID: 4654791684213557670, guid: 6081af7361ed09c44aba3ab4186e6e4d, type: 3}
   spawnPoint: {x: 0, y: 0, z: 0}
   readyButtonText: {fileID: 302300754}
+  roomNameToJoin: testing
 --- !u!114 &1427880052
 MonoBehaviour:
   m_ObjectHideFlags: 0
