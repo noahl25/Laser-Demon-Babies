@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// the physics for this is really complicated, i used a lot of code from a tutorial + alot of edits to fix stuff and smooth everything
+// the physics for this is really complicated, i used a lot of code from a tutorial + edits to fix stuff and smooth everything
+//https://www.youtube.com/watch?v=WfW0k5qENxM
 
 public class WallRunning : MonoBehaviour
 {

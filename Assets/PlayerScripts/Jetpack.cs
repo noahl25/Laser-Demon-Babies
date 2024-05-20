@@ -19,9 +19,15 @@ public class Jetpack : MonoBehaviour
     private float initJetpackUIPosY;
     private float initJetpackUIScaleY;
     private Rigidbody rb;
-    private bool jetpackActive;
+    public bool jetpackActive;
     private float currentFuel;
     private float groundedRefuelDelayTimer;
+
+    public static Jetpack Instance;
+
+    void Awake() {
+        Instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()

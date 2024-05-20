@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using DG.Tweening;
 
-//camera script from BanannaDev
+//camera script from BanannaDev + added some tilting / fov fx
 
 public class MouseLook : MonoBehaviour
 {

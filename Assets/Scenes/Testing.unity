@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18827614, g: 0.19113815, b: 0.19109792, a: 1}
+  m_IndirectSpecularColor: {r: 0.5019536, g: 0.5019536, b: 0.5019536, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3754,7 +3754,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1152684260
 Transform:
   m_ObjectHideFlags: 0
@@ -5815,6 +5815,42 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 976139877823829906, guid: 6081af7361ed09c44aba3ab4186e6e4d, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 976139877823829906, guid: 6081af7361ed09c44aba3ab4186e6e4d, type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 976139877823829906, guid: 6081af7361ed09c44aba3ab4186e6e4d, type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 976139877823829906, guid: 6081af7361ed09c44aba3ab4186e6e4d, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 976139877823829906, guid: 6081af7361ed09c44aba3ab4186e6e4d, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.atime1
+      value: 26214
+      objectReference: {fileID: 0}
+    - target: {fileID: 976139877823829906, guid: 6081af7361ed09c44aba3ab4186e6e4d, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.atime2
+      value: 57311
+      objectReference: {fileID: 0}
+    - target: {fileID: 976139877823829906, guid: 6081af7361ed09c44aba3ab4186e6e4d, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key1.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 976139877823829906, guid: 6081af7361ed09c44aba3ab4186e6e4d, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key2.a
+      value: 0.17254902
+      objectReference: {fileID: 0}
+    - target: {fileID: 976139877823829906, guid: 6081af7361ed09c44aba3ab4186e6e4d, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.m_NumAlphaKeys
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 1406412706645314710, guid: 6081af7361ed09c44aba3ab4186e6e4d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.46162844
@@ -5829,30 +5865,34 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1406412706645314710, guid: 6081af7361ed09c44aba3ab4186e6e4d, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7126309
       objectReference: {fileID: 0}
     - target: {fileID: 1406412706645314710, guid: 6081af7361ed09c44aba3ab4186e6e4d, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: 0.0032960565
       objectReference: {fileID: 0}
     - target: {fileID: 1406412706645314710, guid: 6081af7361ed09c44aba3ab4186e6e4d, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.7015239
       objectReference: {fileID: 0}
     - target: {fileID: 1406412706645314710, guid: 6081af7361ed09c44aba3ab4186e6e4d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0.0032446843
       objectReference: {fileID: 0}
     - target: {fileID: 1406412706645314710, guid: 6081af7361ed09c44aba3ab4186e6e4d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 0.53
       objectReference: {fileID: 0}
     - target: {fileID: 1406412706645314710, guid: 6081af7361ed09c44aba3ab4186e6e4d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 89.1
       objectReference: {fileID: 0}
     - target: {fileID: 1406412706645314710, guid: 6081af7361ed09c44aba3ab4186e6e4d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902809675221299898, guid: 6081af7361ed09c44aba3ab4186e6e4d, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3993688479017951547, guid: 6081af7361ed09c44aba3ab4186e6e4d, type: 3}
