@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
-
+/*
 public class RoomManager : MonoBehaviourPunCallbacks
 {
     public static RoomManager instance;
@@ -31,7 +31,6 @@ public class RoomManager : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-        /*
         GameObject gameSelect = GameObject.FindWithTag("GameSelection");
 
         RoomList roomListComponent = gameSelect.GetComponent<RoomList>();
@@ -49,20 +48,12 @@ public class RoomManager : MonoBehaviourPunCallbacks
         roomOptions.CustomRoomProperties = properties;
 
         PhotonNetwork.JoinOrCreateRoom(roomNameToJoin, roomOptions, null);
-        */
-        GameObject gameSelect = GameObject.FindWithTag("GameSelection");
-        RoomList roomListComponent = gameSelect.GetComponent<RoomList>();
-        playerName = roomListComponent.futurePlayerName;
-
-        loadingCam.SetActive(false);
-
-        SpawnPlayer();
     }
 
     public void ChangeName(string _name) {
         name = _name;
     }
-/*
+
     public override void OnJoinedRoom()
     {
         base.OnJoinedRoom();
@@ -73,7 +64,6 @@ public class RoomManager : MonoBehaviourPunCallbacks
         SpawnPlayer();
   
     }
-    */
 
     public void SpawnPlayer() {
 
@@ -112,3 +102,4 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     }
 }
+*/

@@ -11,27 +11,40 @@ public class SniperScope : MonoBehaviour
     public Camera mainCam;
     public float scopedFOV = 15f;
     private float normalFOV;
+    public GameObject gun;
+    public GameObject rip;
     void Update()
     {
-
+        if (isScoped == false)
+            Scope.SetActive(false);
 
         if (Input.GetButtonDown("Fire2"))
         {
             isScoped = !isScoped;
             animator.SetBool("Scoped", isScoped);
             Scope.SetActive(isScoped);
-          //  Debug.Log("scope");
+
+            //  Debug.Log("scope");
 
             if (isScoped)
-                OnScoped();
+                StartCoroutine(OnScoped());
             else
                 UnScoped();
         }
     }
     IEnumerator OnScoped()
     {
-        yield return new WaitForSeconds(.15f);
+        float timer = 0.0f;
+        float waitTime = 0.05f;
 
+        while (timer < waitTime)
+        {
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        
+        gun.SetActive(false);
+        rip.SetActive(false);
         Scope.SetActive(true);
         //GunCam.SetActive(false);
         normalFOV = mainCam.fieldOfView;
@@ -41,6 +54,8 @@ public class SniperScope : MonoBehaviour
     void UnScoped()
     {
         Scope.SetActive(false);
+        rip.SetActive(true);
+        gun.SetActive(true);
         //GunCam.SetActive(true);
         mainCam.fieldOfView = normalFOV;
     }
