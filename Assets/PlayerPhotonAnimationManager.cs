@@ -10,13 +10,9 @@ public class PlayerPhotonAnimationManager : MonoBehaviour
 
     public Animation anim;
 
-    private PhotonView view;
+    public PhotonView view;
     
     private bool animationsSet = false;
-
-    void Start() {
-        view = GetComponent<PhotonView>();
-    }
 
     public void PlayWalkAnimationSynced() {
         view.RPC("PlayAnimation", RpcTarget.Others, "walk");

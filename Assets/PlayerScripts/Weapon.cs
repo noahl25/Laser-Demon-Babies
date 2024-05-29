@@ -10,6 +10,7 @@ public class Weapon : MonoBehaviour
 {
     public GameObject basicgun;
     public GameObject scopedgun;
+    public GameObject scopeOff;
 
     public int damage;
     public float fireRate;
@@ -78,6 +79,7 @@ public class Weapon : MonoBehaviour
         recoverLength = 1 / fireRate * recoverPercent;
 
         ml = cam.GetComponent<MouseLook>();
+        scopeOff.SetActive(false);
     }
 
     // Update is called once per frame

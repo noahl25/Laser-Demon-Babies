@@ -15,6 +15,9 @@ public class Leaderboard : MonoBehaviour
     [Header("UI")]
     public GameObject playersHolder;
     public GameObject leaderboardItemPrefab;
+    
+    [Header("Refs")]
+    public FinalScore finalScore;
 
     void Start() {
         InvokeRepeating(nameof(UpdateLeaderboard), 1f, refreshRate);
@@ -41,6 +44,27 @@ public class Leaderboard : MonoBehaviour
 
     void Update() {
         playersHolder.SetActive(Input.GetKey(KeyCode.Tab));
+    }
+
+    public void FinishGame() {
+        var sortedPlayerList = (from player in PhotonNetwork.PlayerList orderby player.GetScore() descending select player).ToList();
+
+        finalScore.first.name = sortedPlayerList[0].NickName;
+        finalScore.first.score = sortedPlayerList[0].GetScore();
+
+        if (sortedPlayerList.Count > 1) {
+
+            finalScore.second.name = sortedPlayerList[1].NickName;
+            finalScore.second.score = sortedPlayerList[1].GetScore();
+
+        }
+
+        if (sortedPlayerList.Count > 2) {
+
+            finalScore.third.name = sortedPlayerList[2].NickName;
+            finalScore.third.score = sortedPlayerList[2].GetScore();
+
+        }
     }
 
 }

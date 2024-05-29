@@ -19,9 +19,15 @@ public class Jetpack : MonoBehaviour
     private float initJetpackUIPosY;
     private float initJetpackUIScaleY;
     private Rigidbody rb;
-    private bool jetpackActive;
+    public bool jetpackActive;
     private float currentFuel;
     private float groundedRefuelDelayTimer;
+
+    public static Jetpack Instance;
+
+    void Awake() {
+        Instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -61,7 +67,7 @@ public class Jetpack : MonoBehaviour
     void HandleFuel() {
         if (jetpackActive) {
             groundedRefuelDelayTimer = 0;
-            currentFuel -= depletionRate;
+            currentFuel -= depletionRate * Time.deltaTime;
             if (currentFuel < 0)
                 currentFuel = 0;
         }
@@ -71,7 +77,7 @@ public class Jetpack : MonoBehaviour
 
             if (groundedRefuelDelayTimer > groundedRefuelDelay) {
 
-                currentFuel += repletionRate;
+                currentFuel += repletionRate * Time.deltaTime;
                 if (currentFuel > maxJetpackFuel)
                     currentFuel = maxJetpackFuel;
 

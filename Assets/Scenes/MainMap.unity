@@ -901,6 +901,51 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 668735768885291391, guid: 91ad7bf144749b04ab484a680630a040, type: 3}
   m_PrefabInstance: {fileID: 211611257}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &232274260
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 232274262}
+  - component: {fileID: 232274261}
+  m_Layer: 0
+  m_Name: FinalScore
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &232274261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 232274260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d2f863091fc14b449ee84e78aefe8a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Instance: {fileID: 0}
+--- !u!4 &232274262
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 232274260}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &291158501
 GameObject:
   m_ObjectHideFlags: 0
@@ -3782,6 +3827,7 @@ MonoBehaviour:
   refreshRate: 3
   playersHolder: {fileID: 2054883256}
   leaderboardItemPrefab: {fileID: 4887907094791908166, guid: c26bed9df3a17144ead37723925dd60a, type: 3}
+  finalScore: {fileID: 232274261}
 --- !u!1 &1152684258
 GameObject:
   m_ObjectHideFlags: 0
@@ -3815,7 +3861,9 @@ MonoBehaviour:
   player: {fileID: 4654791684213557670, guid: 6081af7361ed09c44aba3ab4186e6e4d, type: 3}
   spawnPoint: {fileID: 291158502}
   loadingCam: {fileID: 1394757242}
+  leaderboard: {fileID: 1148813572}
   roomNameToJoin: test
+  timer: 900
 --- !u!4 &1152684260
 Transform:
   m_ObjectHideFlags: 0
@@ -7571,3 +7619,4 @@ SceneRoots:
   - {fileID: 1829923002}
   - {fileID: 1148813571}
   - {fileID: 781462409}
+  - {fileID: 232274262}

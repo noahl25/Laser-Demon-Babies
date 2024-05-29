@@ -34,14 +34,14 @@ public class RoomList : MonoBehaviourPunCallbacks
 
     private void Awake() {
         Instance = this;
+        DontDestroyOnLoad(this.gameObject);
     }
 
     // Start is called before the first frame update
     IEnumerator Start()
     {
 
-        DontDestroyOnLoad(this.gameObject);
-        
+        //make sure you are disconnected before proceeding
         if (PhotonNetwork.InRoom) {
             PhotonNetwork.LeaveRoom();
             PhotonNetwork.Disconnect();
@@ -70,7 +70,7 @@ public class RoomList : MonoBehaviourPunCallbacks
             foreach (var room in roomList) {
 
                 for (int i = 0; i < cachedRoomList.Count; i++) {
-
+                    //make sure cached list isn't updated with duplicates
                     if (cachedRoomList[i].Name == room.Name) {
 
                         List<RoomInfo> newList = cachedRoomList;
@@ -96,7 +96,7 @@ public class RoomList : MonoBehaviourPunCallbacks
     }
 
     void UpdateUI() {
-
+        //destroy each object then recreate from cache
         foreach (Transform roomItem in roomListParent) {
             Destroy(roomItem.gameObject);
         }

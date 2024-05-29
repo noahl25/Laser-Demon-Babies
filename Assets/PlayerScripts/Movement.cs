@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class Movement : MonoBehaviour
@@ -20,6 +21,8 @@ public class Movement : MonoBehaviour
 
     public float walkSpeed;
     public float sprintSpeed;
+    public float maxWalkSpeed = 12;
+    public float maxSprintSpeed = 17;
     public float crouchSpeed;
     public float crouchYScale;
     public float jetpackingJumpMultiplier = 0.3f;
@@ -27,7 +30,6 @@ public class Movement : MonoBehaviour
 
     public float maxSlopeAngle;
     private RaycastHit slopeHit;
-    private bool exitingSlope;
     public MouseLook ml;
 
 
@@ -45,6 +47,8 @@ public class Movement : MonoBehaviour
 
     float horizontalInput;
     float verticalInput;
+
+    float maxSpeed;
 
     Vector3 moveDirection;
 
@@ -138,7 +142,7 @@ public class Movement : MonoBehaviour
     }
 
     private void StateHandler() {
-        
+        //handle all the possible states and set move speed/max speed
         if (wallrunning) {
             state = MovementState.wallrunning;
             moveSpeed = wallRunSpeed;
@@ -146,18 +150,22 @@ public class Movement : MonoBehaviour
         else if (grounded && Input.GetKey(sprintKey)) {
             state = MovementState.sprinting;
             moveSpeed = sprintSpeed;
+            maxSpeed = maxSprintSpeed;
         }
         else if (grounded) {
             state = MovementState.walking;
             moveSpeed = walkSpeed;
+            maxSpeed = maxWalkSpeed;
         }
         else if (Input.GetKey(jumpKey)) {
             state = MovementState.jetpacking;
             moveSpeed = sprintSpeed;
+            maxSpeed = maxSprintSpeed;
         }
         else {
             state = MovementState.air;
             moveSpeed = sprintSpeed;
+            maxSpeed = maxSprintSpeed;
         }
         
     }
@@ -172,6 +180,7 @@ public class Movement : MonoBehaviour
 
         Vector2 mag = new Vector2(horizontalInput, verticalInput);
 
+        //animations
         if (!Weapon.doingAction && grounded) {
             if (mag.magnitude >= 0.5f) {
                 handAnimation.CrossFade("walk", 0.5f);
@@ -191,43 +200,32 @@ public class Movement : MonoBehaviour
         else {
             photonAnimationManager.PlayIdleAnimationSynced();
         }
-        
-        if (OnSlope() && !exitingSlope) {
-            rb.AddForce(GetSlopeMoveDirection() * moveSpeed * 20f, ForceMode.Force);
 
-            if (rb.velocity.y > 0) 
-                rb.AddForce(Vector3.down * 200f, ForceMode.Force);
-        }
+        //applying force
         if(grounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * Time.fixedDeltaTime * 10f, ForceMode.Force);
         else
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f * Time.fixedDeltaTime * airMultiplier, ForceMode.Force);
+            rb.AddForce(moveDirection.normalized * moveSpeed * 10f * Time.fixedDeltaTime * (Jetpack.Instance.jetpackActive ? jetpackingAirMultiplier : airMultiplier), ForceMode.Force);
 
-        if (!wallrunning)
-            rb.useGravity = !OnSlope();
+
+  
     }
 
     private void SpeedControl()
     {
-        if (OnSlope() && !exitingSlope) {
-            if (rb.velocity.magnitude > moveSpeed) 
-                rb.velocity = rb.velocity.normalized * moveSpeed;
-        }
+        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
-        else {
-            Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-
-            if(flatVel.magnitude > moveSpeed)
-            {
-                Vector3 limitedVel = flatVel.normalized * moveSpeed;
-                rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
-            }
+        if(flatVel.magnitude > maxSpeed)
+        {
+            Vector3 limitedVel = flatVel.normalized * maxSpeed;
+            rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
         }
+        
     }
 
     private void Jump()
     {
-        exitingSlope = true;
+
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
         if (state == MovementState.jetpacking || grapple.set) {
@@ -241,22 +239,7 @@ public class Movement : MonoBehaviour
     private void ResetJump()
     {
         readyToJump = true;
-        exitingSlope = false;
-    }
-    //needs to be fixed (works fine without though)
-    private bool OnSlope() {
-        // if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + 0.3f)) {
-        //     float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
-        //     return angle < maxSlopeAngle && angle != 0;
-        // }
-
-        return false;
+  
     }
 
-    private Vector3 GetSlopeMoveDirection() {
-
-        return Vector3.ProjectOnPlane(moveDirection, slopeHit.normal).normalized;
-
-
-    }
 }

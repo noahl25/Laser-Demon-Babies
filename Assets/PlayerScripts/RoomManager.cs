@@ -14,6 +14,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public Transform spawnPoint;
     [Space]
     public GameObject loadingCam;
+    [Space]
+    public Leaderboard leaderboard;
 
     public string roomNameToJoin = "test";
 
@@ -21,11 +23,26 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     private string playerName = "unnnamed";
     private Health.Team playerTeam = Health.Team.NONE;
+    private float timer = 20.0f;
+    private bool endedGame = false;
+
+    void Update() {
+        timer -= Time.deltaTime;
+
+        if (timer <= 0 && !endedGame) {
+            StartCoroutine("EndGame");
+            endedGame = true;
+        }
+    }
 
     void Awake() {
 
         instance = this;
 
+    }
+
+    public float GetTimer() {
+        return timer;
     }
 
     // Start is called before the first frame update
@@ -110,5 +127,11 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
         PhotonNetwork.LocalPlayer.NickName = playerName;
 
+    }
+
+    IEnumerator EndGame() {
+        player.GetComponent<PlayerSetup>().FadeInOverlay();
+        yield return new WaitForSeconds(3);
+        PhotonNetwork.LoadLevel("Podium");
     }
 }
