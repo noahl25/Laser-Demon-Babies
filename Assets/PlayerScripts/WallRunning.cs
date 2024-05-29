@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// the physics for this is really complicated, i used a lot of code from a tutorial + edits to fix stuff and smooth everything
+// the physics for this is really complicated, i code from a tutorial + edits to fix stuff and smooth everything
 //https://www.youtube.com/watch?v=WfW0k5qENxM
 
 public class WallRunning : MonoBehaviour
@@ -57,6 +57,7 @@ public class WallRunning : MonoBehaviour
     }
 
     private void CheckForWall() {
+        //raycast each way
         wallRight = Physics.Raycast(transform.position, orientation.right, out rightWallHit, wallCheckDistance, wall);
         wallLeft = Physics.Raycast(transform.position, -orientation.right, out leftWallHit, wallCheckDistance, wall);
     }
@@ -114,15 +115,18 @@ public class WallRunning : MonoBehaviour
 
     private void WallRunMovement() {
 
+        //gravity off so full control
         rb.useGravity = useGravity;
 
+        //get where wall is facing
         Vector3 wallNormal = wallRight ? rightWallHit.normal : leftWallHit.normal;
         Vector3 wallForward = Vector3.Cross(wallNormal, transform.up);
 
+        //so you dont move backwards
         if ((orientation.forward - wallForward).magnitude > (orientation.forward - -wallForward).magnitude)
             wallForward = -wallForward;
 
-
+        //keep you against wall
         rb.AddForce(wallForward * wallRunForce, ForceMode.Force);
         
         if (!(wallLeft && horizontalInput > 0) && !(wallRight && horizontalInput < 0))

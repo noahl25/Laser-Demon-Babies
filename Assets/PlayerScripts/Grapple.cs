@@ -21,7 +21,7 @@ public class Grapple : MonoBehaviour
 
     private Vector3 grappleHit;
     private GameObject grappleObjectHit;
-    public bool set;
+    [HideInInspector] public bool set;
 
     // Start is called before the first frame update
     void Start()
@@ -46,6 +46,7 @@ public class Grapple : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.E)) {
 
+            //checking where grapple hit
             Ray ray = new Ray(cam.transform.position, cam.transform.forward);
             RaycastHit hit;
 
@@ -87,18 +88,19 @@ public class Grapple : MonoBehaviour
     void Active() {
         
         RaycastHit hit;
+        //make sure there is no walls between you and grapple, and you aren't hitting yourself
         if (Physics.Linecast(spawn.transform.position, grappleHit + ((spawn.transform.position - grappleHit).normalized * 0.5f), out hit) && hit.transform.gameObject != owner && hit.transform.gameObject != grappleGun) {
             set = false;
         }
-
+        //make sure grapple isn't too long
         if (Vector3.Distance(spawn.transform.position, grappleHit) > maxDistance) {
             set = false;
         }
 
+        //forces
         rb.AddForce((grappleHit - spawn.transform.position).normalized * grappleForce * Time.deltaTime, ForceMode.Force);
 
         if (spawn.transform.position.y < grappleHit.y) {
-           // Debug.Log("Uping");
             rb.AddForce(Vector3.up * upwardForce * Time.deltaTime, ForceMode.Force);
         }
 

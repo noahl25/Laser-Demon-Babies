@@ -24,6 +24,7 @@ public class SpeedLinesController : MonoBehaviour
 
         float magnitude = new Vector2(rb.velocity.x, rb.velocity.y).magnitude;
 
+        //smooth transition between values
         float startSpeed = Mathf.Lerp((float)main.startSpeed.constant, Mathf.Log(magnitude * 2) * 5, Time.deltaTime * 3);
         float rateOverTime = Mathf.Lerp((float)emission.rateOverTime.constant, magnitude * 5, Time.deltaTime * 3);
 

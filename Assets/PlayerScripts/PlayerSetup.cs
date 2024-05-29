@@ -87,6 +87,14 @@ public class PlayerSetup : MonoBehaviour
         demonBabyMesh.SetActive(true);
     }
 
+    public void FadeInOverlay() {
+        Color fixedColor = overlay.color;
+        fixedColor.a = 1;
+        overlay.color = fixedColor;
+        overlay.CrossFadeAlpha(0f, 0f, true);
+        overlay.CrossFadeAlpha(1, fadeInDur * Time.deltaTime, false);
+    }
+
     public void LobbySetup()
     {
         demonBabyMesh.SetActive(true);

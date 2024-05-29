@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class Movement : MonoBehaviour
@@ -20,6 +21,8 @@ public class Movement : MonoBehaviour
 
     public float walkSpeed;
     public float sprintSpeed;
+    public float maxWalkSpeed = 12;
+    public float maxSprintSpeed = 17;
     public float crouchSpeed;
     public float crouchYScale;
     public float jetpackingJumpMultiplier = 0.3f;
@@ -44,6 +47,8 @@ public class Movement : MonoBehaviour
 
     float horizontalInput;
     float verticalInput;
+
+    float maxSpeed;
 
     Vector3 moveDirection;
 
@@ -137,7 +142,7 @@ public class Movement : MonoBehaviour
     }
 
     private void StateHandler() {
-        
+        //handle all the possible states and set move speed/max speed
         if (wallrunning) {
             state = MovementState.wallrunning;
             moveSpeed = wallRunSpeed;
@@ -145,18 +150,22 @@ public class Movement : MonoBehaviour
         else if (grounded && Input.GetKey(sprintKey)) {
             state = MovementState.sprinting;
             moveSpeed = sprintSpeed;
+            maxSpeed = maxSprintSpeed;
         }
         else if (grounded) {
             state = MovementState.walking;
             moveSpeed = walkSpeed;
+            maxSpeed = maxWalkSpeed;
         }
         else if (Input.GetKey(jumpKey)) {
             state = MovementState.jetpacking;
             moveSpeed = sprintSpeed;
+            maxSpeed = maxSprintSpeed;
         }
         else {
             state = MovementState.air;
             moveSpeed = sprintSpeed;
+            maxSpeed = maxSprintSpeed;
         }
         
     }
@@ -171,6 +180,7 @@ public class Movement : MonoBehaviour
 
         Vector2 mag = new Vector2(horizontalInput, verticalInput);
 
+        //animations
         if (!Weapon.doingAction && grounded) {
             if (mag.magnitude >= 0.5f) {
                 handAnimation.CrossFade("walk", 0.5f);
@@ -190,7 +200,8 @@ public class Movement : MonoBehaviour
         else {
             photonAnimationManager.PlayIdleAnimationSynced();
         }
-    
+
+        //applying force
         if(grounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * Time.fixedDeltaTime * 10f, ForceMode.Force);
         else
@@ -202,13 +213,11 @@ public class Movement : MonoBehaviour
 
     private void SpeedControl()
     {
-
-       
         Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
-        if(flatVel.magnitude > moveSpeed)
+        if(flatVel.magnitude > maxSpeed)
         {
-            Vector3 limitedVel = flatVel.normalized * moveSpeed;
+            Vector3 limitedVel = flatVel.normalized * maxSpeed;
             rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
         }
         
@@ -233,10 +242,4 @@ public class Movement : MonoBehaviour
   
     }
 
-    private Vector3 GetSlopeMoveDirection() {
-
-        return Vector3.ProjectOnPlane(moveDirection, slopeHit.normal).normalized;
-
-
-    }
 }

@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Lobby.unity
     guid: 7932f299c2bf13a499af852250d13564
+  - enabled: 1
+    path: Assets/Scenes/Podium.unity
+    guid: 91db7da0e5dcb8e4ea708a9c8d76f392
   m_configObjects: {}

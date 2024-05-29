@@ -34,10 +34,6 @@ public class TestRoomManager : MonoBehaviourPunCallbacks
         Debug.Log("TestJoinLobby");
 
 
-
-
-
-
         //Setting room name
         GameObject gameSelect = GameObject.FindWithTag("GameSelection");
         RoomList roomListComponent = gameSelect.GetComponent<RoomList>();

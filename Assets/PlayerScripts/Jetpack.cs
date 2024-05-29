@@ -67,7 +67,7 @@ public class Jetpack : MonoBehaviour
     void HandleFuel() {
         if (jetpackActive) {
             groundedRefuelDelayTimer = 0;
-            currentFuel -= depletionRate;
+            currentFuel -= depletionRate * Time.deltaTime;
             if (currentFuel < 0)
                 currentFuel = 0;
         }
@@ -77,7 +77,7 @@ public class Jetpack : MonoBehaviour
 
             if (groundedRefuelDelayTimer > groundedRefuelDelay) {
 
-                currentFuel += repletionRate;
+                currentFuel += repletionRate * Time.deltaTime;
                 if (currentFuel > maxJetpackFuel)
                     currentFuel = maxJetpackFuel;
 
