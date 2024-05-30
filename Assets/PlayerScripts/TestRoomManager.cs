@@ -14,7 +14,8 @@ public class TestRoomManager : MonoBehaviourPunCallbacks
     public Vector3 spawnPoint;
     [Space]
     public TextMeshProUGUI readyButtonText;
-
+    public TMPro.TMP_Dropdown mapSelector;
+    //public TextMeshProUGUI mapSelected;
     private string playerName = "unnnamed";
     private Health.Team playerTeam = Health.Team.NONE;
 
@@ -24,13 +25,19 @@ public class TestRoomManager : MonoBehaviourPunCallbacks
     public string roomNameToJoin = "testing";
     private RoomList.GameType gameType;
 
+    private string map = "MainMap";
+    private string[] mapList = {"MainMap", "Map2"} ;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        DontDestroyOnLoad(this.gameObject);
+        //DontDestroyOnLoad(this.gameObject);
 
         readyButtonText = FindObjectOfType<TextMeshProUGUI>();
+        //mapSelected = FindObjectOfType<TextMeshProUGUI>();
+
+        Debug.Log("TestJoinLobby");
 
 
         //Setting room name
@@ -98,10 +105,33 @@ public class TestRoomManager : MonoBehaviourPunCallbacks
             readyButtonText.text = "Unready";
             photonView.RPC("ReadyRPC", RpcTarget.All, playerReadyStatus);
             Debug.Log("sent RPC");
+        }   
+    }
+    public void Leave()
+    {        
+        PhotonView photonView = PhotonView.Get(this);
+        playerReadyStatus = false;
+        photonView.RPC("ReadyRPC", RpcTarget.All, playerReadyStatus);
+        /*
+        if (PhotonNetwork.InRoom) {
+            PhotonNetwork.LeaveRoom();
+            PhotonNetwork.Disconnect();
         }
-        //PhotonView photonView = PhotonNetwork.MasterClient;
-        
+        */
+        PhotonNetwork.LeaveRoom();
+        PhotonNetwork.Disconnect();
 
+        //yield return new WaitUntil(() => !PhotonNetwork.IsConnected);
+        //PhotonNetwork.ConnectUsingSettings();
+        Debug.Log("Left Room");
+        SceneManager.LoadScene("Menu");
+    }
+
+    public void UpdateMap()
+    {
+        //mapSelector.GetComponent<dropdown>;
+        map = mapList[mapSelector.value];
+        Debug.Log(mapSelector.value);
     }
 
     [PunRPC]
@@ -119,12 +149,8 @@ public class TestRoomManager : MonoBehaviourPunCallbacks
             if(readyPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
             {
                 
+                Debug.Log("The number of ");
                 photonView.RPC("TransportPlayers", RpcTarget.All);
-                //PhotonNetwork.AutomaticallySyncScene = true;
-                //PhotonNetwork.LoadLevel("MainMap");
-
-                //PhotonNetwork.LeaveRoom();
-                //SceneManager.LoadScene("MainMap");
             }
             else
             {
@@ -154,7 +180,7 @@ public class TestRoomManager : MonoBehaviourPunCallbacks
     {
         //PhotonNetwork.LeaveRoom();
         PhotonNetwork.AutomaticallySyncScene = true;
-        PhotonNetwork.LoadLevel("MainMap");
+        PhotonNetwork.LoadLevel(map);
         //SceneManager.LoadScene("MainMap");
 
     }
