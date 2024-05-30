@@ -4668,26 +4668,6 @@ MonoBehaviour:
   sceneViewId: 1
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &1427880053
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1427880049}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72abe8295260e96439a395bae100199c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  roomListParent: {fileID: 0}
-  roomListItemPrefab: {fileID: 0}
-  createRoomName: {fileID: 0}
-  TDMToggle: {fileID: 0}
-  FFAToggle: {fileID: 0}
-  futureRoomName: test
-  gameType: 0
-  futurePlayerName: unnamed
 --- !u!1001 &1441800157
 PrefabInstance:
   m_ObjectHideFlags: 0
