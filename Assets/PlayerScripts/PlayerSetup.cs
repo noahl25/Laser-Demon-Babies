@@ -45,7 +45,7 @@ public class PlayerSetup : MonoBehaviour
     private IEnumerator FadeIn() {
 
         yield return new WaitForSeconds(1f);
-        overlay.CrossFadeAlpha(0, fadeInDur * Time.deltaTime, false);
+        overlay.CrossFadeAlpha(0f, fadeInDur * Time.deltaTime, false);
 
     }
 
@@ -88,11 +88,9 @@ public class PlayerSetup : MonoBehaviour
     }
 
     public void FadeInOverlay() {
-        Color fixedColor = overlay.color;
-        fixedColor.a = 1;
-        overlay.color = fixedColor;
-        overlay.CrossFadeAlpha(0f, 0f, true);
-        overlay.CrossFadeAlpha(1, fadeInDur * Time.deltaTime, false);
+        Debug.Log(overlay.color);
+        Color newColor = new Color(0, 0, 0, 1);
+        overlay.color = newColor;
     }
 
     public void LobbySetup()
@@ -101,7 +99,6 @@ public class PlayerSetup : MonoBehaviour
         //set name
         //playerName = _name;
         //nameText.text = _name;
-
     }
 
 }

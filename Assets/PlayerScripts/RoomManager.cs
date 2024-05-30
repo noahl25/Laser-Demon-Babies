@@ -33,6 +33,11 @@ public class RoomManager : MonoBehaviourPunCallbacks
             StartCoroutine("EndGame");
             endedGame = true;
         }
+
+        if (player.transform.position.y < -20) {
+            Destroy(player);
+            SpawnPlayer();
+        }
     }
 
     void Awake() {
@@ -130,8 +135,12 @@ public class RoomManager : MonoBehaviourPunCallbacks
     }
 
     IEnumerator EndGame() {
-        player.GetComponent<PlayerSetup>().FadeInOverlay();
-        yield return new WaitForSeconds(3);
+        float timer = 3.0f;
+        while (timer > 0) {
+            player.GetComponent<PlayerSetup>().FadeInOverlay();
+            timer -= Time.deltaTime;
+            yield return null;
+        }
         PhotonNetwork.LoadLevel("Podium");
     }
 }

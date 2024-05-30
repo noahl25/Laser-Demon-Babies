@@ -31,7 +31,6 @@ public class TestRoomManager : MonoBehaviourPunCallbacks
         DontDestroyOnLoad(this.gameObject);
 
         readyButtonText = FindObjectOfType<TextMeshProUGUI>();
-        Debug.Log("TestJoinLobby");
 
 
         //Setting room name
@@ -66,7 +65,7 @@ public class TestRoomManager : MonoBehaviourPunCallbacks
         //_player = PhotonNetwork.Instantiate(player.name, spawnPoint, Quaternion.identity);
         _player = PhotonNetwork.Instantiate(player.name, spawnPoint, Quaternion.Euler(0,180,0));
 
-        _player.GetComponent<PhotonView>().RPC("SetName", RpcTarget.OthersBuffered, playerName, playerTeam);
+        _player.GetComponent<PhotonView>().RPC("SetName", RpcTarget.AllBuffered, playerName, playerTeam);
         //_player.GetComponent<PlayerSetup>().HideName();
         //_player.GetComponent<PhotonView>().RPC("SetupMeshes", RpcTarget.OthersBuffered);
         

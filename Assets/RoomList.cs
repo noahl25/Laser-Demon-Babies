@@ -31,6 +31,8 @@ public class RoomList : MonoBehaviourPunCallbacks
     public GameType gameType = GameType.None;
     [HideInInspector] public string futurePlayerName = "unnamed";
 
+    bool connected = false;
+
 
     private void Awake() {
         Instance = this;
@@ -57,6 +59,12 @@ public class RoomList : MonoBehaviourPunCallbacks
         base.OnConnectedToMaster();
 
         PhotonNetwork.JoinLobby();
+    }
+
+    public override void OnJoinedLobby() {
+        base.OnJoinedLobby();
+
+        connected = true;
     }
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList) {
@@ -98,7 +106,8 @@ public class RoomList : MonoBehaviourPunCallbacks
     void UpdateUI() {
         //destroy each object then recreate from cache
         foreach (Transform roomItem in roomListParent) {
-            Destroy(roomItem.gameObject);
+            if (roomItem)
+                Destroy(roomItem.gameObject);
         }
 
         foreach (var room in cachedRoomList) {
@@ -122,6 +131,9 @@ public class RoomList : MonoBehaviourPunCallbacks
     }
 
     public void JoinRoomByName(string name) {
+
+        if (!connected) return;
+
         futureRoomName = name;
         SceneManager.LoadScene("Lobby");
     }
@@ -131,6 +143,8 @@ public class RoomList : MonoBehaviourPunCallbacks
     }
 
     public void CreateRoom() {
+
+        if (!connected) return;
         
         futureRoomName = createRoomName.text;
         
