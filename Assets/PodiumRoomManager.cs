@@ -32,7 +32,10 @@ public class PodiumRoomManager : MonoBehaviour
 
     IEnumerator Exit() {
         yield return new WaitForSeconds(20);
-        SceneManager.LoadScene("Lobby");
+        PhotonNetwork.LeaveRoom();
+        PhotonNetwork.Disconnect();
+        Debug.Log("Left Room");
+        SceneManager.LoadScene("Menu");        
     }
 
 }
