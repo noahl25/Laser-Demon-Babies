@@ -27,6 +27,10 @@ public class TestRoomManager : MonoBehaviourPunCallbacks
     private string map = "MainMap";
     private string[] mapList = {"MainMap", "Map3"};
 
+    private Player[] allPlayers;
+    private int myNumberInRoom;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -38,7 +42,26 @@ public class TestRoomManager : MonoBehaviourPunCallbacks
         //DontDestroyOnLoad(this.gameObject);
 
         if (PhotonNetwork.InRoom) {
-            spawnPoint = LobbySpawnPoint.Position(PhotonNetwork.CurrentRoom.PlayerCount);
+
+            
+            allPlayers = PhotonNetwork.PlayerList;
+            Debug.Log("all players");
+            Debug.Log(allPlayers);
+            myNumberInRoom = 0;
+            foreach(Player p in allPlayers)
+            {
+                if(p!= PhotonNetwork.LocalPlayer)
+                {
+                    myNumberInRoom++;
+                    Debug.Log("My number in room: " + myNumberInRoom.ToString());
+
+                }
+            }
+            spawnPoint = LobbySpawnPoint.instance.spawnPoints[myNumberInRoom].position;
+
+
+
+            //spawnPoint = LobbySpawnPoint.Position(PhotonNetwork.CurrentRoom.PlayerCount);
             //_player = PhotonNetwork.Instantiate(player.name, spawnPoint, Quaternion.identity);
             _player = PhotonNetwork.Instantiate(player.name, spawnPoint, Quaternion.Euler(0,180,0));
 
@@ -78,7 +101,24 @@ public class TestRoomManager : MonoBehaviourPunCallbacks
     {
         base.OnJoinedRoom();
         Debug.Log("Joined room.");
-        spawnPoint = LobbySpawnPoint.Position(PhotonNetwork.CurrentRoom.PlayerCount);
+
+        allPlayers = PhotonNetwork.PlayerList;
+        Debug.Log("all players");
+        Debug.Log(allPlayers);
+        foreach(Player p in allPlayers)
+        {
+            if(p!= PhotonNetwork.LocalPlayer)
+            {
+                myNumberInRoom++;
+                Debug.Log(myNumberInRoom);
+
+            }
+        }
+        spawnPoint = LobbySpawnPoint.instance.spawnPoints[myNumberInRoom].position;
+
+
+
+        //spawnPoint = LobbySpawnPoint.Position(PhotonNetwork.CurrentRoom.PlayerCount);
         //_player = PhotonNetwork.Instantiate(player.name, spawnPoint, Quaternion.identity);
         _player = PhotonNetwork.Instantiate(player.name, spawnPoint, Quaternion.Euler(0,180,0));
 
