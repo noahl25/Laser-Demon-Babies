@@ -24,6 +24,7 @@ public class PlayerSetup : MonoBehaviour
     public GameObject demonBabyMesh;
     public PlayerPhotonAnimationManager photonAnimationManager;
     public GameObject laserHolder;
+    public GameObject weaponCamera;
 
     [HideInInspector] public string playerName;
 
@@ -89,6 +90,11 @@ public class PlayerSetup : MonoBehaviour
     [PunRPC]
     public void SetupMeshes() {
         demonBabyMesh.SetActive(true);
+        weaponCamera.layer = LayerMask.NameToLayer("Default");
+        Transform weaponsParent = weaponCamera.transform.GetChild(0);
+        foreach (Transform child in weaponsParent) {
+            child.gameObject.layer = LayerMask.NameToLayer("Default");
+        }
     }
 
     public void FadeInOverlay() {

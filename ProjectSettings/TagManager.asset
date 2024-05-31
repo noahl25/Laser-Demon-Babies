@@ -7,6 +7,7 @@ TagManager:
   - FinalScore
   - GameSelection
   - RoomListParent
+  - MusicPlayer
   layers:
   - Default
   - TransparentFX

@@ -8,6 +8,15 @@ public class MusicPlayer : MonoBehaviour
     private AudioSource src;
     private bool playing = true;
 
+    private MusicPlayer Instance;
+
+    void Awake() {
+        foreach (GameObject player in GameObject.FindGameObjectsWithTag("MusicPlayer"))
+        {
+            Destroy(player);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {

@@ -151,9 +151,13 @@ public class TestRoomManager : MonoBehaviourPunCallbacks
     }
     public void Leave()
     {        
+        StartCoroutine("EnumLeave");
+    }
+
+    private IEnumerator EnumLeave() {
         PhotonNetwork.LeaveRoom();
         PhotonNetwork.Disconnect();
-        //yield return new WaitUntil(() => !PhotonNetwork.IsConnected);
+        yield return new WaitUntil(() => !PhotonNetwork.IsConnected);
         //PhotonNetwork.ConnectUsingSettings();
         Debug.Log("Left Room");
         SceneManager.LoadScene("Menu");
