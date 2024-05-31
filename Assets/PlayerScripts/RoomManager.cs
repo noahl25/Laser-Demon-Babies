@@ -11,11 +11,12 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     public GameObject player;
     [Space]
-    public Transform spawnPoint;
+    public Transform[] spawnPoint;
     [Space]
     public GameObject loadingCam;
     [Space]
     public Leaderboard leaderboard;
+
 
     public string roomNameToJoin = "test";
 
@@ -99,10 +100,11 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     public void SpawnPlayer() {
 
-        GameObject _player = PhotonNetwork.Instantiate(player.name, spawnPoint.position, Quaternion.identity);
+        GameObject _player = PhotonNetwork.Instantiate(player.name, spawnPoint[Random.Range(0, spawnPoint.Length)].position, Quaternion.identity);
         _player.GetComponent<PlayerSetup>().IsLocalPlayer();
         _player.GetComponent<Health>().isLocalPlayer = true;
 
+        //if tdm gamemode, setup that
         if ((string)PhotonNetwork.CurrentRoom.CustomProperties["gamemode"] == "tdm") {
 
             if (playerTeam == Health.Team.NONE) {
@@ -120,6 +122,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
             }
 
             _player.GetComponent<PhotonView>().RPC("SyncTeams", RpcTarget.OthersBuffered, playerTeam);
+            //set team jereseys unactive for YOURSELF only, so you dont see them (very annoying if you can)
             _player.transform.GetChild(0).gameObject.SetActive(false);
             _player.transform.GetChild(1).gameObject.SetActive(false);
             _player.GetComponent<TeamIndicator>().SetTeamText(playerTeam.ToString());
@@ -127,20 +130,33 @@ public class RoomManager : MonoBehaviourPunCallbacks
         }
 
         _player.GetComponent<PhotonView>().RPC("SetName", RpcTarget.OthersBuffered, playerName, playerTeam);
+        //hides your own name
         _player.GetComponent<PlayerSetup>().HideName();
         _player.GetComponent<PhotonView>().RPC("SetupMeshes", RpcTarget.OthersBuffered);
 
+
         PhotonNetwork.LocalPlayer.NickName = playerName;
+
+        player = _player;
 
     }
 
     IEnumerator EndGame() {
-        float timer = 3.0f;
-        while (timer > 0) {
-            player.GetComponent<PlayerSetup>().FadeInOverlay();
-            timer -= Time.deltaTime;
+
+        leaderboard.FinishGame();
+
+        float t = 3.0f;
+
+        PlayerSetup setup = player.GetComponent<PlayerSetup>();
+
+        setup.End();
+        while (t > 0) {
+            setup.FadeInOverlay();
+            t -= Time.deltaTime;
             yield return null;
         }
+        setup.FadeFully();
+        yield return new WaitForSeconds(1f);
         PhotonNetwork.LoadLevel("Podium");
     }
 }

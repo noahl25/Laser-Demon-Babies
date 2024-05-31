@@ -913,7 +913,7 @@ GameObject:
   - component: {fileID: 232274261}
   m_Layer: 0
   m_Name: FinalScore
-  m_TagString: Untagged
+  m_TagString: FinalScore
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3859,11 +3859,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 4654791684213557670, guid: 6081af7361ed09c44aba3ab4186e6e4d, type: 3}
-  spawnPoint: {fileID: 291158502}
+  spawnPoint:
+  - {fileID: 291158502}
+  - {fileID: 1495234663}
   loadingCam: {fileID: 1394757242}
   leaderboard: {fileID: 1148813572}
   roomNameToJoin: test
-  timer: 900
 --- !u!4 &1152684260
 Transform:
   m_ObjectHideFlags: 0

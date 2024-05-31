@@ -18,7 +18,14 @@ public class SpeedLinesController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
- 
+
+        if (rb.velocity.magnitude <= 1) {
+            particleSystem.Stop();
+            return;
+        }
+
+        particleSystem.Play();
+
         var main = particleSystem.main;
         var emission = particleSystem.emission;
 

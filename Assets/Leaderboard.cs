@@ -24,7 +24,7 @@ public class Leaderboard : MonoBehaviour
     }
 
     void UpdateLeaderboard() {
-
+        //destroy and remake each
         foreach (Transform item in playersHolder.transform) {
             Destroy(item.gameObject);
         }
@@ -43,6 +43,7 @@ public class Leaderboard : MonoBehaviour
     }
 
     void Update() {
+        //open leaderboard when pressing tab
         playersHolder.SetActive(Input.GetKey(KeyCode.Tab));
     }
 
@@ -51,11 +52,13 @@ public class Leaderboard : MonoBehaviour
 
         finalScore.first.name = sortedPlayerList[0].NickName;
         finalScore.first.score = sortedPlayerList[0].GetScore();
+        finalScore.first.active = true;
 
         if (sortedPlayerList.Count > 1) {
 
             finalScore.second.name = sortedPlayerList[1].NickName;
             finalScore.second.score = sortedPlayerList[1].GetScore();
+            finalScore.second.active = true;
 
         }
 
@@ -63,6 +66,7 @@ public class Leaderboard : MonoBehaviour
 
             finalScore.third.name = sortedPlayerList[2].NickName;
             finalScore.third.score = sortedPlayerList[2].GetScore();
+            finalScore.third.active = true;
 
         }
     }

@@ -2534,13 +2534,13 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 8718cd045bb59674f82833f28050524e, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.08
   m_Pitch: 1
   Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 256
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 10000
@@ -2792,7 +2792,7 @@ GameObject:
   - component: {fileID: 1265719663}
   m_Layer: 5
   m_Name: Content
-  m_TagString: Untagged
+  m_TagString: RoomListParent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3395,7 +3395,7 @@ GameObject:
   - component: {fileID: 1757203405}
   m_Layer: 5
   m_Name: UI
-  m_TagString: Untagged
+  m_TagString: RoomListParent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

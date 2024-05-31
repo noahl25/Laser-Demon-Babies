@@ -26,12 +26,15 @@ public class TestRoomManager : MonoBehaviourPunCallbacks
     private RoomList.GameType gameType;
 
     private string map = "MainMap";
-    private string[] mapList = {"MainMap", "Map2"} ;
+    private string[] mapList = {"MainMap", "Map3"} ;
 
 
     // Start is called before the first frame update
     void Start()
     {
+
+        Cursor.lockState = CursorLockMode.None;
+
         //DontDestroyOnLoad(this.gameObject);
 
         readyButtonText = FindObjectOfType<TextMeshProUGUI>();
@@ -39,6 +42,17 @@ public class TestRoomManager : MonoBehaviourPunCallbacks
 
         Debug.Log("TestJoinLobby");
 
+        if (PhotonNetwork.InRoom) {
+
+            spawnPoint = LobbySpawnPoint.Position(PhotonNetwork.CurrentRoom.PlayerCount);
+
+            _player = PhotonNetwork.Instantiate(player.name, spawnPoint, Quaternion.Euler(0,180,0));
+            _player.GetComponent<PhotonView>().RPC("SetName", RpcTarget.AllBuffered, playerName, playerTeam);
+            _player.GetComponent<PlayerSetup>().LobbySetup();
+            return;
+
+        }
+        
 
         //Setting room name
         GameObject gameSelect = GameObject.FindWithTag("GameSelection");
@@ -107,22 +121,15 @@ public class TestRoomManager : MonoBehaviourPunCallbacks
             Debug.Log("sent RPC");
         }   
     }
-    public void Leave()
-    {        
+
+    public void Leave() {
         PhotonView photonView = PhotonView.Get(this);
         playerReadyStatus = false;
         photonView.RPC("ReadyRPC", RpcTarget.All, playerReadyStatus);
-        /*
-        if (PhotonNetwork.InRoom) {
-            PhotonNetwork.LeaveRoom();
-            PhotonNetwork.Disconnect();
-        }
-        */
-        PhotonNetwork.LeaveRoom();
-        PhotonNetwork.Disconnect();
 
-        //yield return new WaitUntil(() => !PhotonNetwork.IsConnected);
-        //PhotonNetwork.ConnectUsingSettings();
+        // PhotonNetwork.LeaveLobby();
+        PhotonNetwork.LeaveRoom();
+
         Debug.Log("Left Room");
         SceneManager.LoadScene("Menu");
     }
@@ -178,6 +185,7 @@ public class TestRoomManager : MonoBehaviourPunCallbacks
     [PunRPC]
     public void TransportPlayers()
     {
+        playerReadyStatus = false;
         //PhotonNetwork.LeaveRoom();
         PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.LoadLevel(map);

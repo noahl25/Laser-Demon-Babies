@@ -8,6 +8,7 @@ public class FinalScore : MonoBehaviour
     public struct Winner {
         public int score;
         public string name;
+        public bool active;
     };
 
     public FinalScore Instance;

@@ -32,6 +32,8 @@ public class MouseLook : MonoBehaviour
     [HideInInspector]
     public bool scoped;
 
+    private bool fovOverride = false;
+
     void Start()
     {
         instance = this;
@@ -100,8 +102,19 @@ public class MouseLook : MonoBehaviour
     }
 
     public void ToFov(float end) {
+        if (fovOverride) return;
         GetComponent<Camera>().DOFieldOfView(end, 0.25f);
     }
+
+    public void OverrideFov(float end, float time) {
+        GetComponent<Camera>().DOFieldOfView(end, time);
+        fovOverride = true;
+    }
+
+    public void UnOverride() {
+        fovOverride = false;
+    }
+
     public void Tilt(float tilt) {
         nextTween.z = tilt;
     }

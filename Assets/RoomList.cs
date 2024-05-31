@@ -32,11 +32,21 @@ public class RoomList : MonoBehaviourPunCallbacks
     [HideInInspector] public string futurePlayerName = "unnamed";
 
     bool connected = false;
+    bool joinedRoom = false;
 
 
     private void Awake() {
-        Instance = this;
-        DontDestroyOnLoad(this.gameObject);
+        if (Instance == null) {
+            //First run, set the Instance
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        } 
+        else if (Instance != this) {
+            //Instance is not the same as the one we have, destroy old one, and reset to newest one
+            Destroy(Instance.gameObject);
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
     }
 
     // Start is called before the first frame update
@@ -58,7 +68,11 @@ public class RoomList : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster() {
         base.OnConnectedToMaster();
 
-        PhotonNetwork.JoinLobby();
+        if (!joinedRoom) 
+            PhotonNetwork.JoinLobby();
+
+        joinedRoom = true;
+        
     }
 
     public override void OnJoinedLobby() {
@@ -105,10 +119,12 @@ public class RoomList : MonoBehaviourPunCallbacks
 
     void UpdateUI() {
         //destroy each object then recreate from cache
+      
         foreach (Transform roomItem in roomListParent) {
-            if (roomItem)
+            if (roomItem.gameObject)
                 Destroy(roomItem.gameObject);
         }
+        
 
         foreach (var room in cachedRoomList) {
 

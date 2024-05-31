@@ -37,13 +37,13 @@ public class WeaponSwitch : MonoBehaviour
 
         int weaponSelection = -1;
 
-        if (Input.GetKeyDown("i")) {
+        if (Input.GetKeyDown("1")) {
             weaponSelection = 0;
         }
-        if (Input.GetKeyDown("o")) {            
+        if (Input.GetKeyDown("2")) {            
             weaponSelection = 1;
         }
-        if (Input.GetKeyDown("p")) {
+        if (Input.GetKeyDown("3")) {
             weaponSelection = 2;
         }
 

@@ -36,6 +36,81 @@ RectTransform:
   m_AnchoredPosition: {x: -68, y: 42.4}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &578580772527996937
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5360446575650809546}
+  - component: {fileID: 5751887459225041296}
+  - component: {fileID: 3503986361026535343}
+  m_Layer: 5
+  m_Name: Overlay2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &5360446575650809546
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 578580772527996937}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 20.35, y: 11.91, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1302843963895517620}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &5751887459225041296
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 578580772527996937}
+  m_CullTransparentMesh: 1
+--- !u!114 &3503986361026535343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 578580772527996937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &817091969857549501
 GameObject:
   m_ObjectHideFlags: 0
@@ -541,7 +616,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 79
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 30
@@ -1635,12 +1710,13 @@ MonoBehaviour:
   orientation: {fileID: 6786864417897931952}
   syncedWeaponHolder: {fileID: 1454862277786270090}
   overlay: {fileID: 6224894023979654108}
-  fadeInDur: 50
+  overlay2: {fileID: 578580772527996937}
+  fadeInDur: 3
   nameText: {fileID: 6905452159563674118}
   nameHolder: {fileID: 1266382426681839585}
   demonBabyMesh: {fileID: 3911203120759522470}
   photonAnimationManager: {fileID: 0}
-  laserHolder: {fileID: 0}
+  laserHolder: {fileID: 5363340577833106697}
   playerName: 
 --- !u!114 &2605211482994820982
 MonoBehaviour:
@@ -1977,6 +2053,7 @@ RectTransform:
   - {fileID: 8339902372367976562}
   - {fileID: 2629476979907211126}
   - {fileID: 5491645583575489943}
+  - {fileID: 5360446575650809546}
   - {fileID: 8678439617440842306}
   m_Father: {fileID: 8741213722042114755}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2532,7 +2609,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8678439617440842306
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3793,7 +3870,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basicgun: {fileID: 1762996625103774948}
   scopedgun: {fileID: 3717852563258817088}
-  scopeOff: {fileID: 0}
+  scopeOff: {fileID: 5625448635232081155}
   damage: 60
   fireRate: 1
   cam: {fileID: 1128208124470661519}
@@ -3947,7 +4024,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 2900644622714285460}
   Scope: {fileID: 5625448635232081155}
-  mainCam: {fileID: 1128208124470661519}
+  ml: {fileID: 380033161239563243}
   scopedFOV: 15
   gun: {fileID: 6928015460079767455}
   rip: {fileID: 8572574548409003264}

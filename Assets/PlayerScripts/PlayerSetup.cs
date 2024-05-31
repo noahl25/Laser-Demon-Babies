@@ -16,6 +16,8 @@ public class PlayerSetup : MonoBehaviour
     public Transform syncedWeaponHolder;
     [Header("Setup")]
     public Image overlay;
+    //need a second overlay becuase first doesn't become opaque again (hacky but works)
+    public GameObject overlay2;
     public float fadeInDur;
     public TextMeshPro nameText;
     public GameObject nameHolder;
@@ -35,7 +37,6 @@ public class PlayerSetup : MonoBehaviour
         jetpack.enabled = true;
         orientation.SetActive(true);
         cam.SetActive(true);
-        Debug.Log("Set local.");
         StartCoroutine("FadeIn");
 
         GetComponent<PhotonView>().RPC("SetupSyncedWeapons", RpcTarget.OthersBuffered, 0);
@@ -45,7 +46,10 @@ public class PlayerSetup : MonoBehaviour
     private IEnumerator FadeIn() {
 
         yield return new WaitForSeconds(1f);
-        overlay.CrossFadeAlpha(0f, fadeInDur * Time.deltaTime, false);
+        while (overlay.color.a > 0) {
+            overlay.CrossFadeAlpha(0f, fadeInDur, true);
+            yield return null;
+        }
 
     }
 
@@ -88,9 +92,19 @@ public class PlayerSetup : MonoBehaviour
     }
 
     public void FadeInOverlay() {
-        Debug.Log(overlay.color);
-        Color newColor = new Color(0, 0, 0, 1);
-        overlay.color = newColor;
+        overlay.CrossFadeAlpha(1, 2f, false);
+    }
+
+    public void FadeFully() {
+        overlay2.SetActive(true);
+    }
+
+
+    public void End() {
+        movement.enabled = false;
+        Rigidbody rb = GetComponent<Rigidbody>();
+        rb.isKinematic  = true;
+        laserHolder.SetActive(false);
     }
 
     public void LobbySetup()

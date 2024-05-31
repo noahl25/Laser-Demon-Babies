@@ -8,7 +8,7 @@ public class SniperScope : MonoBehaviour
     private bool isScoped = false;
     public GameObject Scope;
     //public GameObject GunCam; //for this, you need to make a seperate layer for weapons, a cam for it, and change the culling mask to only weapons
-    public Camera mainCam;
+    public MouseLook ml;
     public float scopedFOV = 15f;
     private float normalFOV;
     public GameObject gun;
@@ -42,13 +42,12 @@ public class SniperScope : MonoBehaviour
             timer += Time.deltaTime;
             yield return null;
         }
-        
+        ml.OverrideFov(scopedFOV, 0.1f);
         gun.SetActive(false);
         rip.SetActive(false);
         Scope.SetActive(true);
         //GunCam.SetActive(false);
-        normalFOV = mainCam.fieldOfView;
-        mainCam.fieldOfView = scopedFOV;
+       
 
     }
     void UnScoped()
@@ -57,6 +56,6 @@ public class SniperScope : MonoBehaviour
         rip.SetActive(true);
         gun.SetActive(true);
         //GunCam.SetActive(true);
-        mainCam.fieldOfView = normalFOV;
+        ml.UnOverride();
     }
 }
