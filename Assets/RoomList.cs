@@ -53,6 +53,9 @@ public class RoomList : MonoBehaviourPunCallbacks
     IEnumerator Start()
     {
 
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
         //make sure you are disconnected before proceeding
         if (PhotonNetwork.InRoom) {
             PhotonNetwork.LeaveRoom();

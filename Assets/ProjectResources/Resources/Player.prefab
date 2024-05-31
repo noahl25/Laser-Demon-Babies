@@ -1717,7 +1717,7 @@ MonoBehaviour:
   demonBabyMesh: {fileID: 3911203120759522470}
   photonAnimationManager: {fileID: 0}
   laserHolder: {fileID: 5363340577833106697}
-  weaponCamera: {fileID: 0}
+  weaponCamera: {fileID: 2915019463654131458}
   playerName: 
 --- !u!114 &2605211482994820982
 MonoBehaviour:

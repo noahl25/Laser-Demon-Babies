@@ -13,7 +13,8 @@ public class MusicPlayer : MonoBehaviour
     void Awake() {
         foreach (GameObject player in GameObject.FindGameObjectsWithTag("MusicPlayer"))
         {
-            Destroy(player);
+            if (player != this.gameObject)
+                Destroy(player);
         }
     }
 

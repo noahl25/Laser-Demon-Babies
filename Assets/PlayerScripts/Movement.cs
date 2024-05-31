@@ -173,8 +173,9 @@ public class Movement : MonoBehaviour
     private void MovePlayer()
     {
 
+        Debug.Log(transform.rotation.y);
         Vector3 forward = new Vector3(transform.forward.x, 0, transform.forward.z);
-        Vector3 right = new Vector3(playerTransform.transform.right.x, 0, playerTransform.transform.right.z);
+        Vector3 right = new Vector3(transform.right.x, 0, transform.right.z);
 
         moveDirection = forward * verticalInput + right * horizontalInput;
 
