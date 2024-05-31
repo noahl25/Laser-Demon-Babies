@@ -33,6 +33,7 @@ public class TestRoomManager : MonoBehaviourPunCallbacks
     void Start()
     {
 
+        Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
         //DontDestroyOnLoad(this.gameObject);
@@ -59,7 +60,7 @@ public class TestRoomManager : MonoBehaviourPunCallbacks
         RoomList roomListComponent = gameSelect.GetComponent<RoomList>();
         roomNameToJoin = roomListComponent.futureRoomName;
         gameType = roomListComponent.gameType;
-        //playerName = roomListComponent.futurePlayerName;
+        playerName = roomListComponent.futurePlayerName;
 
         
         //Setting Room properties
@@ -124,8 +125,6 @@ public class TestRoomManager : MonoBehaviourPunCallbacks
 
     public void Leave() {
         PhotonView photonView = PhotonView.Get(this);
-        playerReadyStatus = false;
-        photonView.RPC("ReadyRPC", RpcTarget.All, playerReadyStatus);
 
         // PhotonNetwork.LeaveLobby();
         PhotonNetwork.LeaveRoom();

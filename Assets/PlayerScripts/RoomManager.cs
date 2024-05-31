@@ -24,7 +24,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     private string playerName = "unnnamed";
     private Health.Team playerTeam = Health.Team.NONE;
-    private float timer = 20.0f;
+    private float timer = 5.0f;
     private bool endedGame = false;
 
     void Update() {

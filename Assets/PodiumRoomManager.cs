@@ -20,9 +20,9 @@ public class PodiumRoomManager : MonoBehaviour
         first.GetComponent<SetupNamesAndScore>().Setup(finalScore.first.name, finalScore.first.score);
 
         //check if actually exists
-        if (string.IsNullOrEmpty(finalScore.second.name)) second.SetActive(false);
+        if (!finalScore.second.active) second.SetActive(false);
         else second.GetComponent<SetupNamesAndScore>().Setup(finalScore.second.name, finalScore.second.score);
-        if (string.IsNullOrEmpty(finalScore.third.name)) third.SetActive(false);
+        if (!finalScore.third.active) third.SetActive(false);
         else third.GetComponent<SetupNamesAndScore>().Setup(finalScore.third.name, finalScore.third.score);
         //leave after 10s
 
@@ -31,7 +31,7 @@ public class PodiumRoomManager : MonoBehaviour
     }
 
     IEnumerator Exit() {
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(20);
         SceneManager.LoadScene("Lobby");
     }
 
