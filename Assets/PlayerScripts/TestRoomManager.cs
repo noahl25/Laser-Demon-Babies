@@ -32,14 +32,11 @@ public class TestRoomManager : MonoBehaviourPunCallbacks
     void Start()
     {
 
-<<<<<<< HEAD
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
         //DontDestroyOnLoad(this.gameObject);
 
-=======
->>>>>>> b2a6c2d0483a4ef8ee14d2d86aa9764d05fcb538
         readyButtonText = FindObjectOfType<TextMeshProUGUI>();
         Debug.Log("TestJoinLobby");
 
@@ -102,15 +99,10 @@ public class TestRoomManager : MonoBehaviourPunCallbacks
     public void Leave()
     {        
         PhotonView photonView = PhotonView.Get(this);
-<<<<<<< HEAD
-
-        // PhotonNetwork.LeaveLobby();
-=======
         playerReadyStatus = false;
         photonView.RPC("ReadyRPC", RpcTarget.All, playerReadyStatus);
         GameObject gameSelect = GameObject.FindWithTag("GameSelection");
         Destroy(gameSelect);
->>>>>>> b2a6c2d0483a4ef8ee14d2d86aa9764d05fcb538
         PhotonNetwork.LeaveRoom();
         PhotonNetwork.Disconnect();
 
