@@ -9,6 +9,7 @@ public class MainMenuHandler : MonoBehaviour
     public Transform playButton;
     public Transform settingsButton;
     public Transform roomList;
+    public Transform settings;
 
     public void MainMenu()
     {
@@ -23,8 +24,21 @@ public class MainMenuHandler : MonoBehaviour
 
     }
 
-    public void Settings()
+    public void Setting()
     {
-        SceneManager.LoadScene("Settings");
+        playButton.gameObject.SetActive(false);
+        settingsButton.gameObject.SetActive(false);
+        settings.gameObject.SetActive(true);
+    }
+
+    public void Back() {
+        playButton.gameObject.SetActive(true);
+        settingsButton.gameObject.SetActive(true);
+        settings.gameObject.SetActive(false);
+    }
+
+    public void PostProcessingToggle() {
+        Settings.PostProcessingOff = !Settings.PostProcessingOff;
+        //switch
     }
 }

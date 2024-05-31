@@ -9,10 +9,12 @@ public class ActivatePostProcessing : MonoBehaviour
     public PostProcessVolume volume;
 
     // Update is called once per frame
-    void Update()
+    void Start()
     {
-        if (Input.GetKeyDown(KeyCode.M)) {
-            volume.enabled = !volume.enabled;
-        }
+        if (Settings.PostProcessingOff)
+            volume.enabled = false;
+        else 
+            volume.enabled = true;
+        
     }
 }
