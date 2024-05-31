@@ -173,17 +173,17 @@ public class Movement : MonoBehaviour
     private void MovePlayer()
     {
 
-        Debug.Log(transform.rotation.y);
+  
         Vector3 forward = new Vector3(transform.forward.x, 0, transform.forward.z);
         Vector3 right = new Vector3(transform.right.x, 0, transform.right.z);
 
         moveDirection = forward * verticalInput + right * horizontalInput;
 
-        Vector2 mag = new Vector2(horizontalInput, verticalInput);
+        Vector3 input = new Vector3(horizontalInput, 0, verticalInput);
 
         //animations
         if (!Weapon.doingAction && grounded) {
-            if (mag.magnitude >= 0.5f) {
+            if (input.magnitude >= 0.5f) {
                 handAnimation.CrossFade("walk", 0.5f);
             }
             else {
@@ -195,7 +195,7 @@ public class Movement : MonoBehaviour
             handAnimation.Stop();
         }
 
-        if (mag.magnitude >= 0.5f) {
+        if (input.magnitude >= 0.5f) {
             photonAnimationManager.PlayWalkAnimationSynced();
         }
         else {

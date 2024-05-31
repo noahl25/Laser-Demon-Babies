@@ -9,7 +9,7 @@ public class SniperScope : MonoBehaviour
     public GameObject Scope;
     //public GameObject GunCam; //for this, you need to make a seperate layer for weapons, a cam for it, and change the culling mask to only weapons
     public MouseLook ml;
-    public float scopedFOV = 15f;
+    public int scopedFOV = 15;
     private float normalFOV;
     public GameObject gun;
     public GameObject rip;

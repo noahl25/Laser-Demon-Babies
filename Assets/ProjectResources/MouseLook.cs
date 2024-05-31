@@ -28,11 +28,15 @@ public class MouseLook : MonoBehaviour
     private Vector2 mouseDelta;
 
     private Vector3 nextTween;
+    private int nextFOV;
+    private float nextFOVTime;
 
     [HideInInspector]
     public bool scoped;
 
     private bool fovOverride = false;
+    
+    private Camera cam;
 
     void Start()
     {
@@ -47,6 +51,8 @@ public class MouseLook : MonoBehaviour
         
         if (lockCursor)
             LockCursor();
+
+        cam = GetComponent<Camera>();
 
     }
 
@@ -90,7 +96,7 @@ public class MouseLook : MonoBehaviour
         if (characterBody)
         {
             var yRotation = Quaternion.AngleAxis(_mouseAbsolute.x, Vector3.up);
-            characterBody.transform.localRotation = yRotation * targetCharacterOrientation;
+            characterBody.transform.localRotation = yRotation;
         }
         else
         {
@@ -99,15 +105,18 @@ public class MouseLook : MonoBehaviour
         }
 
         transform.DOLocalRotate(nextTween, 0.35f);
+        cam.DOFieldOfView(nextFOV, nextFOVTime);
     }
 
     public void ToFov(float end) {
         if (fovOverride) return;
-        GetComponent<Camera>().DOFieldOfView(end, 0.25f);
+        nextFOV = (int)end;
+        nextFOVTime = 0.2f;
     }
 
-    public void OverrideFov(float end, float time) {
-        GetComponent<Camera>().DOFieldOfView(end, time);
+    public void OverrideFov(int end, float time) {
+        nextFOV = end;
+        nextFOVTime = time;
         fovOverride = true;
     }
 
