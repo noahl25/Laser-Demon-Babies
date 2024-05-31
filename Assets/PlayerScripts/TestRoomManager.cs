@@ -23,9 +23,13 @@ public class TestRoomManager : MonoBehaviourPunCallbacks
     private bool playerReadyStatus = false;
     public string roomNameToJoin = "testing";
     private RoomList.GameType gameType;
+    public GameObject SpawnPointManager;
 
     private string map = "MainMap";
     private string[] mapList = {"MainMap", "Map2", "Map3"} ;
+
+    private Player[] allPlayers;
+    private int myNumberInRoom;
 
 
     // Start is called before the first frame update
@@ -54,15 +58,41 @@ public class TestRoomManager : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinOrCreateRoom(roomNameToJoin, roomOptions, null);
         
 
+
+
     }
 
     public override void OnJoinedRoom()
     {
         base.OnJoinedRoom();
         Debug.Log("Joined room.");
-        spawnPoint = LobbySpawnPoint.Position(PhotonNetwork.CurrentRoom.PlayerCount);
         //_player = PhotonNetwork.Instantiate(player.name, spawnPoint, Quaternion.identity);
+        
+        
+        allPlayers = PhotonNetwork.PlayerList;
+        Debug.Log(allPlayers);
+        foreach(Player p in allPlayers)
+        {
+            if(p!= PhotonNetwork.LocalPlayer)
+            {
+                myNumberInRoom++;
+                Debug.Log(myNumberInRoom);
+
+            }
+        }
+
+    
+
+        spawnPoint = LobbySpawnPoint.instance.spawnPoints[myNumberInRoom].position;
+
+
         _player = PhotonNetwork.Instantiate(player.name, spawnPoint, Quaternion.Euler(0,180,0));
+        //PhotonView photonView = PhotonView.Get(_player);
+        //spawnPoint = SpawnPointManager.GetComponent<LobbySpawnPoint>().GetSpawnPosition();
+        //_player.transform.position = spawnPoint;
+
+
+
 
         _player.GetComponent<PhotonView>().RPC("SetName", RpcTarget.OthersBuffered, playerName, playerTeam);
         _player.GetComponent<PlayerSetup>().HideName();
